@@ -1,0 +1,157 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Chapter&nbsp;6.&nbsp;Endpoint Lifecycle, Sessions, Sending Messages</title><link rel="stylesheet" type="text/css" href="/documentation.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Tyrus 1.8 User Guide"><link rel="up" href="index.html" title="Tyrus 1.8 User Guide"><link rel="prev" href="configurations.html" title="Chapter&nbsp;5.&nbsp;Configurations"><link rel="next" href="injection.html" title="Chapter&nbsp;7.&nbsp;Injection Support"></head><body class="contents"><div class="contents" bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter&nbsp;6.&nbsp;Endpoint Lifecycle, Sessions, Sending Messages</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="configurations.html">Prev</a>&nbsp;</td><th width="60%" align="center">&nbsp;</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="injection.html">Next</a></td></tr></table><hr></div><div lang="en" class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="lifecycle"></a>Chapter&nbsp;6.&nbsp;Endpoint Lifecycle, Sessions, Sending Messages</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="lifecycle.html#d0e871">6.1. Endpoint Lifecycle</a></span></dt><dt><span class="section"><a href="lifecycle.html#d0e891">6.2. <code class="code">javax.websocket.Session</code></a></span></dt><dt><span class="section"><a href="lifecycle.html#d0e976">6.3. Sending Messages</a></span></dt><dt><span class="section"><a href="lifecycle.html#d0e1008">6.4. RemoteEndpoint</a></span></dt><dd><dl><dt><span class="section"><a href="lifecycle.html#d0e1022">6.4.1. <code class="code">javax.websocket.RemoteEndpoint.Basic</code></a></span></dt><dt><span class="section"><a href="lifecycle.html#d0e1046">6.4.2. <code class="code">javax.websocket.RemoteEndpoint.Async</code></a></span></dt></dl></dd></dl></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e871"></a>6.1.&nbsp;Endpoint Lifecycle</h2></div></div></div><p>
+                As mentioned before, the endpoint in Java API for WebSocket is represented either by instance of <code class="code">javax.websocket.Endpoint</code>,
+                or by class annotated with either <code class="code">javax.websocket.server.ServerEndpoint</code> or
+                <code class="code">javax.websocket.ClientEndpoint</code>. Unless otherwise defined by developer provided configurator
+                (defined in instance of <code class="code">javax.websocket.server.ServerEndpointConfig</code> or
+                <code class="code">javax.websocket.ClientEndpointConfig</code>, Tyrus uses one endpoint instance per VM per connected
+                peer. Therefore one endpoint instance typically handles connections from one peer.
+            </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e891"></a>6.2.&nbsp;<code class="code">javax.websocket.Session</code></h2></div></div></div><p>
+                The sequence of interactions between an endpoint instance and remote peer is in Java API for WebSocket modelled by
+                <code class="code">javax.websocket.Session</code> instance. This interaction starts by mandatory open notification,
+                continues by 0 - n websocket messages and is finished by mandatory closing notification.
+            </p><p>
+                The <code class="code">javax.websocket.Session</code> instance is passed by Tyrus to the user in the following methods
+                for programmatic endpoints:
+                </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: opencircle; "><li class="listitem" style="list-style-type: circle"><p>
+                            <code class="code">public void onOpen(Session session, EndpointConfig config)</code>
+                        </p></li><li class="listitem" style="list-style-type: circle"><p>
+                            <code class="code">public void onClose(Session session, CloseReason closeReason)</code>
+                        </p></li><li class="listitem" style="list-style-type: circle"><p>
+                            <code class="code">public void onError(Session session, Throwable thr)</code>
+                        </p></li></ul></div><p>
+            </p><p>
+                The <code class="code">javax.websocket.Session</code> instance is passed by Tyrus to the user in the methods
+                annotated by following annotations for annotated endpoints:
+                </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: opencircle; "><li class="listitem" style="list-style-type: circle"><p>
+                            method annotated with <code class="code">javax.websocket.OnOpen</code>
+                        </p></li><li class="listitem" style="list-style-type: circle"><p>
+                            method annotated with <code class="code">javax.websocket.OnMessage</code>
+                        </p></li><li class="listitem" style="list-style-type: circle"><p>
+                            method annotated with <code class="code">javax.websocket.OnClose</code>
+                        </p></li><li class="listitem" style="list-style-type: circle"><p>
+                            method annotated with <code class="code">javax.websocket.OnError</code>
+                        </p></li></ul></div><p>
+                In each of the methods annotated with the preceeding annotations the user may use parameter of type
+                <code class="code">javax.websocket.Session</code>. In the following example the developer wants to send a message in
+                the method annotated with <code class="code">javax.websocket.OnOpen</code>. As we will demonstrate later, the developer
+                needs the session instance to do so. According to Java API for WebSocket Session is one of the allowed parameters in
+                methods annotated with  <code class="code">javax.websocket.OnOpen</code>. Once the annotated method gets called,
+                Tyrus passes in the correct instance of <code class="code">javax.websocket.Session</code>.
+            </p><p>
+                </p><div class="example"><a name="lifecycle-echo-sample"></a><p class="title"><b>Example&nbsp;6.1.&nbsp;Lifecycle echo sample</b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">@ServerEndpoint("/echo")
+public class EchoEndpoint {
+
+    @OnOpen
+    public void onOpen(Session session) throws IOException {
+        session.getBasicRemote().sendText("onOpen");
+    }
+
+    @OnMessage
+    public String echo(String message) {
+        return message;
+    }
+
+    @OnError
+    public void onError(Throwable t) {
+        t.printStackTrace();
+    }
+}</pre></div></div><p><br class="example-break">
+            </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e976"></a>6.3.&nbsp;Sending Messages</h2></div></div></div><p>
+                Generally there are two ways how to send message to the peer endpoint. First one is usable for annotated
+                endpoints only. The user may send the message by returning the message content from the method annotated
+                with <code class="code">javax.websocket.OnMessage</code>. In the following example the message m is sent back to the
+                remote endpoint.
+            </p><p>
+                </p><div class="example"><a name="lifecycle-onmessage-sample"></a><p class="title"><b>Example&nbsp;6.2.&nbsp;Sending message in @OnMessage</b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">@OnMessage
+public String echo(String m) {
+    return m;                                                                                                                             &nbsp;&nbsp;
+}</pre></div></div><p><br class="example-break">
+            </p><p>
+            The other option how to send a message is to obtain the <code class="code">javax.websocket.RemoteEndpoint</code> instance
+            via the <code class="code">javax.websocket.Session</code> instance. See the following example:
+        </p><p>
+            </p><div class="example"><a name="lifecycle-remote-endpoint-sample"></a><p class="title"><b>Example&nbsp;6.3.&nbsp;Sending message via RemoteEndpoint.Basic instance</b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">@OnMessage
+public void echo(String message, Session session) {
+    session.getBasicRemote().sendText(message);
+}</pre></div></div><p><br class="example-break">
+        </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e1008"></a>6.4.&nbsp;RemoteEndpoint</h2></div></div></div><p>
+            The interface <code class="code">javax.websocket.RemoteEndpoint</code>, part of Java API for WebSocket, is designed to represent the
+            other end of the communication (related to the endpoint), so the developer uses it to send the message.
+            There are two basic interfaces the user may use - <code class="code">javax.websocket.RemoteEndpoint$Basic</code> and
+            <code class="code">javax.websocket.RemoteEndpoint$Async</code>.
+        </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d0e1022"></a>6.4.1.&nbsp;<code class="code">javax.websocket.RemoteEndpoint.Basic</code></h3></div></div></div><p>
+                is used to send synchronous messages The point of completion of the send is defined when all the supplied
+                data has been written to the underlying connection. The methods for sending messages on the
+                <code class="code">javax.websocket.RemoteEndpoint$Basic</code> block until this point of completion is reached, except for
+                <code class="code">javax.websocket.RemoteEndpoint$Basic#getSendStream()</code> and
+                <code class="code">javax.websocket.RemoteEndpoint$Basic#getSendWriter()</code> which present traditional blocking I/O streams
+                to write messages. See the example
+                <a class="link" href="lifecycle.html#lifecycle-remote-endpoint-sample" title="Example&nbsp;6.3.&nbsp;Sending message via RemoteEndpoint.Basic instance">"Sending message via RemoteEndpoint.Basic instance"</a>
+                to see how the whole text message is send. The following example demonstrates a method which sends the
+                partial text method to the peer:
+                </p><div class="example"><a name="lifecycle-remote-endpoint-partial-sample"></a><p class="title"><b>Example&nbsp;6.4.&nbsp;Method for sending partial text message</b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">public void sendPartialTextMessage(String message, Boolean isLast, Session session){
+    try {
+        session.getBasicRemote().sendText(message, isLast);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}</pre></div></div><p><br class="example-break">
+            </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d0e1046"></a>6.4.2.&nbsp;<code class="code">javax.websocket.RemoteEndpoint.Async</code></h3></div></div></div><p>
+                This representation of the peer of a web socket conversation has the ability to send messages
+                asynchronously. The point of completion of the send is defined when all the supplied data has been
+                written to the underlying connection. The completion handlers for the asynchronous methods are always
+                called with a different thread from that which initiated the send.
+                </p><div class="example"><a name="lifecycle-remote-endpoint-async-future"></a><p class="title"><b>Example&nbsp;6.5.&nbsp;Sending mesage the async way using Future</b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">public void sendWholeAsyncMessage(String message, Session session){
+    Future&lt;Void&gt; future = session.getAsyncRemote().sendText(message);
+}</pre></div></div><p><br class="example-break">
+            </p></div></div></div><link href="http://tyrus.java.net/sh/shCore.css" rel="stylesheet" type="text/css"><link href="http://tyrus.java.net/sh/shThemeDefault.css" rel="stylesheet" type="text/css"><script src="http://tyrus.java.net/sh/shCore.js" type="text/javascript"></script><script src="http://tyrus.java.net/sh/shAutoloader.js" type="text/javascript"></script><script type="text/javascript">
+            function path() {
+              var args = arguments,
+                  result = []
+                  ;
+
+              for(var i = 0; i < args.length; i++)
+                  result.push(args[i].replace('@', 'http://tyrus.java.net/sh/'));
+
+              return result
+            };
+
+            SyntaxHighlighter.autoloader.apply(null, path(
+              'applescript            @shBrushAppleScript.js',
+              'actionscript3 as3      @shBrushAS3.js',
+              'bash shell             @shBrushBash.js',
+              'coldfusion cf          @shBrushColdFusion.js',
+              'cpp c                  @shBrushCpp.js',
+              'c# c-sharp csharp      @shBrushCSharp.js',
+              'css                    @shBrushCss.js',
+              'delphi pascal          @shBrushDelphi.js',
+              'diff patch pas         @shBrushDiff.js',
+              'erl erlang             @shBrushErlang.js',
+              'groovy                 @shBrushGroovy.js',
+              'java                   @shBrushJava.js',
+              'jfx javafx             @shBrushJavaFX.js',
+              'js jscript javascript  @shBrushJScript.js',
+              'perl pl                @shBrushPerl.js',
+              'php                    @shBrushPhp.js',
+              'text plain             @shBrushPlain.js',
+              'py python              @shBrushPython.js',
+              'ruby rails ror rb      @shBrushRuby.js',
+              'sass scss              @shBrushSass.js',
+              'scala                  @shBrushScala.js',
+              'sql                    @shBrushSql.js',
+              'vb vbnet               @shBrushVb.js',
+              'xml xhtml xslt html    @shBrushXml.js'
+            ));
+
+            SyntaxHighlighter.all();
+        </script><script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-41373632-1', 'java.net');
+              ga('send', 'pageview');
+        </script><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="configurations.html">Prev</a>&nbsp;</td><td width="20%" align="center">&nbsp;</td><td width="40%" align="right">&nbsp;<a accesskey="n" href="injection.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter&nbsp;5.&nbsp;Configurations&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;7.&nbsp;Injection Support</td></tr></table></div></div></body></html>

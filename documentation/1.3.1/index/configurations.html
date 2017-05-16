@@ -1,0 +1,138 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Chapter&nbsp;5.&nbsp;Configurations</title><link rel="stylesheet" type="text/css" href="/documentation.css"><meta name="generator" content="DocBook XSL-NS Stylesheets V1.76.1"><link rel="home" href="index.html" title="Tyrus 1.3.1 User Guide"><link rel="up" href="index.html" title="Tyrus 1.3.1 User Guide"><link rel="prev" href="websocket-api.html" title="Chapter&nbsp;4.&nbsp;WebSocket API Endpoints, Sessions and MessageHandlers"><link rel="next" href="lifecycle.html" title="Chapter&nbsp;6.&nbsp;Endpoint Lifecycle, Sessions, Sending Messages"></head><body class="contents"><div class="contents" bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter&nbsp;5.&nbsp;Configurations</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="websocket-api.html">Prev</a>&nbsp;</td><th width="60%" align="center">&nbsp;</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="lifecycle.html">Next</a></td></tr></table><hr></div><div lang="en" class="chapter" title="Chapter&nbsp;5.&nbsp;Configurations"><div class="titlepage"><div><div><h2 class="title"><a name="configurations"></a>Chapter&nbsp;5.&nbsp;Configurations</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="configurations.html#d0e786">5.1. <code class="code">javax.websocket.server.ServerEndpointConfig</code></a></span></dt><dt><span class="section"><a href="configurations.html#d0e839">5.2. <code class="code">javax.websocket.ClientEndpointConfig</code></a></span></dt></dl></div><p>
+        <code class="code">javax.websocket.server.ServerEndpointConfig</code> and <code class="code">javax.websocket.ClientEndpointConfig</code> objects
+        are used to provide the user the ability to configure websocket endpoints. Both server and client endpoints have some
+        part of configuration in common, namely encoders, decoders, and user properties. The user properties may developers
+        use to store the application specific data. For the developer's convenience the builders are provided for both
+        ServerEndpointConfig and ClientEndpointConfig.
+    </p><div class="section" title="5.1.&nbsp;javax.websocket.server.ServerEndpointConfig"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e786"></a>5.1.&nbsp;<code class="code">javax.websocket.server.ServerEndpointConfig</code></h2></div></div></div><p>
+            The <code class="code">javax.websocket.server.ServerEndpointConfig</code> is used when deploying the endpoint either via
+            implementing the <code class="code">javax.websocket.server.ServerApplicationConfig</code>, or via registering the programmatic endpoint
+            at the <code class="code">javax.websocket.server.ServerContainer</code> instance. It allows the user to create the configuration
+            programmatically.
+        </p><p>
+            The following example is used to deploy the EchoEndpoint programmatically. In the method
+            <code class="code">getEndpointClass()</code> the user has to specify the class of the deployed endpoint. In
+            the example Tyrus will create an instance of <code class="code">EchoEndpoint</code> and deploy it.
+            This is the way how to tie together endpoint and it's configuration. In the method
+            <code class="code">getPath()</code> the user specifies that that the endpoint instance will be deployed at the
+            path "/echo". In the method <code class="code">public List&lt;String&gt; getSubprotocols()</code> the user
+            specifies that the supported subprotocols are "echo1" and "echo2". The method <code class="code">getExtensions()</code>
+            defines the extensions the endpoint supports. Similarly the example configuration does not use any configurator.
+            Method <code class="code">public List&lt;Class&lt;? extends Encoder&gt;&gt; getEncoders()</code> defines the encoders
+            used by teh endpoint. The decoders and user properties map are defined in similar fashion.
+        </p><p>
+            If the endpoint class which is about to be deployed is an annotated endpoint, note that the endpoint configuration
+            will be taken from configuration object, not from the annotation on the endpoint class.
+        </p><div class="example"><a name="d0e823"></a><p class="title"><b>Example&nbsp;5.1.&nbsp;Configuration for EchoEndpoint Deployment</b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">public class EchoEndpointConfig implements ServerEndpointConfig{
+
+    private final Map&lt;String, Object&gt; userProperties = new HashMap&lt;String, Object&gt;();
+
+    @Override
+    public Class&lt;?&gt; getEndpointClass() {
+        return EchoEndpoint.class;
+    }
+
+    @Override
+    public String getPath() {
+        return "/echo";
+    }
+
+    @Override
+    public List&lt;String&gt; getSubprotocols() {
+        return Arrays.asList("echo1","echo2");
+    }
+
+    @Override
+    public List&lt;Extension&gt; getExtensions() {
+        return null;
+    }
+
+    @Override
+    public Configurator getConfigurator() {
+        return null;
+    }
+
+    @Override
+    public List&lt;Class&lt;? extends Encoder&gt;&gt; getEncoders() {
+        return Arrays.asList(SampleEncoder.class);
+    }
+
+    @Override
+    public List&lt;Class&lt;? extends Decoder&gt;&gt; getDecoders() {
+        return Arrays.asList(SampleDecoder.class);
+    }
+
+    @Override
+    public Map&lt;String, Object&gt; getUserProperties() {
+        return userProperties;
+    }
+}</pre></div></div><br class="example-break"><p>
+            To make the development easy the <span class="emphasis"><em>javax.websocket.server.ServerEndpointConfig</em></span> provides a builder to construct
+            the configuration object:
+            </p><div class="example"><a name="d0e833"></a><p class="title"><b>Example&nbsp;5.2.&nbsp;ServerEndpointConfigu built using Builder</b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">ServerEndpointConfig config = ServerEndpointConfig.Builder.create(EchoEndpoint.class,"/echo").
+    decoders(Arrays.&lt;Class&lt;? extends Decoder&gt;&gt;asList(JsonDecoder.class)).
+    encoders(Arrays.&lt;Class&lt; extends Encoder&gt;&gt;asList(JsonEncoder.class)).build();</pre></div></div><p><br class="example-break">
+        </p></div><div class="section" title="5.2.&nbsp;javax.websocket.ClientEndpointConfig"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e839"></a>5.2.&nbsp;<code class="code">javax.websocket.ClientEndpointConfig</code></h2></div></div></div><p>
+            The <code class="code">javax.websocket.ClientEndpointConfig</code> is used when deploying the programmatic client endpoint
+            via registering the programmatic endpoint at the <code class="code">WebSocketContainer</code> instance. Some of
+            the configuration methods come from the <code class="code">EndpointConfig</code>class, which is extended by both
+            <code class="code">javax.websocket.server.ServerEndpointConfig</code> and <code class="code">javax.websocket.ClientEndpointConfig</code>. Then there are methods
+            for configuring the preferred subprotocols the client endpoint wants to use and supported extensions. It is
+            also possible to use the ClientEndpointConfig.Configurator in order to be able to affect the endpoint behaviour
+            before and after request.
+        </p><p>
+            Similarly to the ServerEndpointConfig, there is a Builder provided to construct the configuration easily:
+        </p><div class="example"><a name="d0e862"></a><p class="title"><b>Example&nbsp;5.3.&nbsp;ClientEndpointConfig built using Builder</b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">ClientEndpointConfig.Builder.create().
+    decoders(Arrays.&lt;Class&lt;? extends Decoder&gt;&gt;asList(JsonDecoder.class)).
+    encoders(Arrays.&lt;Class&lt;? extends Encoder&gt;&gt;asList(JsonEncoder.class)).
+    preferredSubprotocols(Arrays.asList("echo1", "echo2")).build();</pre></div></div><br class="example-break"></div></div><link href="http://tyrus.java.net/sh/shCore.css" rel="stylesheet" type="text/css"><link href="http://tyrus.java.net/sh/shThemeDefault.css" rel="stylesheet" type="text/css"><script src="http://tyrus.java.net/sh/shCore.js" type="text/javascript"></script><script src="http://tyrus.java.net/sh/shAutoloader.js" type="text/javascript"></script><script type="text/javascript">
+            function path() {
+              var args = arguments,
+                  result = []
+                  ;
+
+              for(var i = 0; i < args.length; i++)
+                  result.push(args[i].replace('@', 'http://tyrus.java.net/sh/'));
+
+              return result
+            };
+
+            SyntaxHighlighter.autoloader.apply(null, path(
+              'applescript            @shBrushAppleScript.js',
+              'actionscript3 as3      @shBrushAS3.js',
+              'bash shell             @shBrushBash.js',
+              'coldfusion cf          @shBrushColdFusion.js',
+              'cpp c                  @shBrushCpp.js',
+              'c# c-sharp csharp      @shBrushCSharp.js',
+              'css                    @shBrushCss.js',
+              'delphi pascal          @shBrushDelphi.js',
+              'diff patch pas         @shBrushDiff.js',
+              'erl erlang             @shBrushErlang.js',
+              'groovy                 @shBrushGroovy.js',
+              'java                   @shBrushJava.js',
+              'jfx javafx             @shBrushJavaFX.js',
+              'js jscript javascript  @shBrushJScript.js',
+              'perl pl                @shBrushPerl.js',
+              'php                    @shBrushPhp.js',
+              'text plain             @shBrushPlain.js',
+              'py python              @shBrushPython.js',
+              'ruby rails ror rb      @shBrushRuby.js',
+              'sass scss              @shBrushSass.js',
+              'scala                  @shBrushScala.js',
+              'sql                    @shBrushSql.js',
+              'vb vbnet               @shBrushVb.js',
+              'xml xhtml xslt html    @shBrushXml.js'
+            ));
+
+            SyntaxHighlighter.all();
+        </script><script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-41373632-1', 'java.net');
+              ga('send', 'pageview');
+        </script><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="websocket-api.html">Prev</a>&nbsp;</td><td width="20%" align="center">&nbsp;</td><td width="40%" align="right">&nbsp;<a accesskey="n" href="lifecycle.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter&nbsp;4.&nbsp;WebSocket API Endpoints, Sessions and MessageHandlers&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;6.&nbsp;Endpoint Lifecycle, Sessions, Sending Messages</td></tr></table></div></div></body></html>
