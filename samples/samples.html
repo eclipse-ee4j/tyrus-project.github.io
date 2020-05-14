@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Samples</title>
+  </head>
+  <body>
+  <h2>Running the Draw Sample</h2>  
+  <p>
+    One of the samples in Tyrus is the Draw Sample. To run it, you need to add the following dependency to your pom file:  
+  
+    <pre class="programlisting">
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.glassfish.tyrus&lt;/groupId&gt;
+        &lt;artifactId&gt;websocket-sample-draw&lt;/artifactId&gt;
+        &lt;version&gt;1.0-b04&lt;/version&gt;
+    &lt;/dependency&gt;
+    </pre>
+    
+    Maven downloads the file websocket-sample-draw-1.0-b04.war during the built. </BR>  
+    Now you need to download sources for the previous artefact and run the Main class - this starts the Draw server.</BR>
+    In the next step, deploy the websocket-sample-draw-1.0-b04.war on the application server and access it via some browser supporting WebSocket. You will be able to draw on HTML 5 canvas.</BR> 
+    If you access the same address from another browser tab, you will be able to draw on the canvas too and see in real-time what the other connected hosts are drawing.</BR></BR>
+    
+The Group Draw application screen shot:</BR>
+<img src="../images/gd.png" alt="Group Draw">            
+  </p>     
+  </body>
+</html>
