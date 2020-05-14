@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Getting Started</title>
+  </head>
+  <body>
+  <h2>System requirements</h2>  
+  <p>
+  JDK 1.6+</BR>   
+  Maven 3.X</BR>
+  Browser suporting Websocket, e.g. latest Safari, Chrome, IE, Mozilla.</BR>  
+  </p>
+  
+  <h2>Maven dependencies</h2>
+  <p>
+  It is necessary to depend on correct Tyrus artifacts. The following artifacts           need to be added to your pom to use Tyrus:
+    <pre class="programlisting">
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.glassfish.tyrus&lt;/groupId&gt;
+        &lt;artifactId&gt;websocket-impl&lt;/artifactId&gt;
+        &lt;version&gt;1.0-b04&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.glassfish.tyrus&lt;/groupId&gt;
+        &lt;artifactId&gt;websocket-provider-grizzly&lt;/artifactId&gt;
+        &lt;version&gt;1.0-b04&lt;/version&gt;
+    &lt;/dependency&gt;
+    </pre>
+  </p>   
+  <p>
+  It is also necessary to add the artifact for the Websocket API:
+      <pre class="programlisting">
+    &lt;dependency&gt;
+        &lt;groupId&gt;javax.net.websocket&lt;/groupId&gt;
+        &lt;artifactId&gt;javax.net.websocket-api&lt;/artifactId&gt;
+        &lt;version&gt;1.0-b04&lt;/version&gt;
+    &lt;/dependency&gt;
+    </pre>
+  </p>   
+  
+  <h2>Creating a WebSocket Endpoint using WebSocket API annotations.</h2>
+  <p>
+    It is pretty easy to create an WebSocket endpoint. Let's create the endpoint that echoes back the message it has received. Note that the endpoint is registered on the path /echo.
+  
+      <pre class="programlisting">
+    &nbsp;&nbsp;1     // The Java class will be hosted at the URI path "/echo"
+    &nbsp;&nbsp;2     @WebSocketEndpoint(path="/echo")
+    &nbsp;&nbsp;3     public class EchoBean {
+    &nbsp;&nbsp;4     
+    &nbsp;&nbsp;5       @WebSocketMessage
+    &nbsp;&nbsp;6         public void echo(String message, Session peer) {
+    &nbsp;&nbsp;7           // Echo the message back to sender.
+    &nbsp;&nbsp;8           peer.getRemote().sendString(message);
+    &nbsp;&nbsp;9         }
+    &nbsp;&nbsp;10     }
+    </pre>
+  </p>
+  
+  <h2>Deploying the WebSocket to the server.</h2>
+  <p>
+    The following Main class deploys the endpoint to the server, starts the server. The server is stopped once any console input is entered.
+  
+  <pre class="programlisting">
+    &nbsp;&nbsp;1     import org.glassfish.tyrus.platform.main.Server;
+    &nbsp;&nbsp;2     import java.io.IOException;
+    &nbsp;&nbsp;3     
+    &nbsp;&nbsp;4     public class Main {
+    &nbsp;&nbsp;5     
+    &nbsp;&nbsp;6         public static void main(String[] args) {
+    &nbsp;&nbsp;7             Server server = new Server("localhost", 8025, "/sample", EchoBean.class);
+    &nbsp;&nbsp;8     
+    &nbsp;&nbsp;9             try {
+    &nbsp;&nbsp;10                 server.start();
+    &nbsp;&nbsp;11                  System.out.println("Press any key to stop the server...");
+    &nbsp;&nbsp;12                 System.in.read();
+    &nbsp;&nbsp;13             } catch (IOException ioe) {
+    &nbsp;&nbsp;14                 ioe.printStackTrace();
+    &nbsp;&nbsp;15             } finally {
+    &nbsp;&nbsp;16                 server.stop();
+    &nbsp;&nbsp;17                 System.out.println("Server stopped.");
+    &nbsp;&nbsp;18             }
+    &nbsp;&nbsp;19         }
+    &nbsp;&nbsp;20     }
+  </pre>
+  </p>
+  </body>
+</html>
