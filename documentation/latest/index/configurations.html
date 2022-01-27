@@ -1,15 +1,15 @@
 <html><head>
       <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-   <title>Chapter&nbsp;5.&nbsp;Configurations</title><link rel="stylesheet" type="text/css" href="/documentation.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Tyrus 2.0.0 User Guide"><link rel="up" href="index.html" title="Tyrus 2.0.0 User Guide"><link rel="prev" href="websocket-api.html" title="Chapter&nbsp;4.&nbsp;WebSocket API Endpoints, Sessions and MessageHandlers"><link rel="next" href="lifecycle.html" title="Chapter&nbsp;6.&nbsp;Endpoint Lifecycle, Sessions, Sending Messages"></head><body class="contents"><div class="contents" bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter&nbsp;5.&nbsp;Configurations</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="websocket-api.html">Prev</a>&nbsp;</td><th width="60%" align="center">&nbsp;</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="lifecycle.html">Next</a></td></tr></table><hr></div><div lang="en" class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="configurations"></a>Chapter&nbsp;5.&nbsp;Configurations</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="configurations.html#d0e786">5.1. <code class="code">jakarta.websocket.server.ServerEndpointConfig</code></a></span></dt><dt><span class="section"><a href="configurations.html#d0e839">5.2. <code class="code">jakarta.websocket.ClientEndpointConfig</code></a></span></dt></dl></div><p>
-        <code class="code">jakarta.websocket.server.ServerEndpointConfig</code> and <code class="code">jakarta.websocket.ClientEndpointConfig</code> objects
+   <title>Chapter&nbsp;5.&nbsp;Configurations</title><link rel="stylesheet" type="text/css" href="/tyrus-project.github.io/documentation.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Tyrus 1.18 User Guide"><link rel="up" href="index.html" title="Tyrus 1.18 User Guide"><link rel="prev" href="websocket-api.html" title="Chapter&nbsp;4.&nbsp;WebSocket API Endpoints, Sessions and MessageHandlers"><link rel="next" href="lifecycle.html" title="Chapter&nbsp;6.&nbsp;Endpoint Lifecycle, Sessions, Sending Messages"></head><body class="contents"><div class="contents" bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter&nbsp;5.&nbsp;Configurations</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="websocket-api.html">Prev</a>&nbsp;</td><th width="60%" align="center">&nbsp;</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="lifecycle.html">Next</a></td></tr></table><hr></div><div lang="en" class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="configurations"></a>Chapter&nbsp;5.&nbsp;Configurations</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="configurations.html#d0e786">5.1. <code class="code">javax.websocket.server.ServerEndpointConfig</code></a></span></dt><dt><span class="section"><a href="configurations.html#d0e839">5.2. <code class="code">javax.websocket.ClientEndpointConfig</code></a></span></dt></dl></div><p>
+        <code class="code">javax.websocket.server.ServerEndpointConfig</code> and <code class="code">javax.websocket.ClientEndpointConfig</code> objects
         are used to provide the user the ability to configure websocket endpoints. Both server and client endpoints have some
         part of configuration in common, namely encoders, decoders, and user properties. The user properties may developers
         use to store the application specific data. For the developer's convenience the builders are provided for both
         ServerEndpointConfig and ClientEndpointConfig.
-    </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e786"></a>5.1.&nbsp;<code class="code">jakarta.websocket.server.ServerEndpointConfig</code></h2></div></div></div><p>
-            The <code class="code">jakarta.websocket.server.ServerEndpointConfig</code> is used when deploying the endpoint either via
-            implementing the <code class="code">jakarta.websocket.server.ServerApplicationConfig</code>, or via registering the programmatic endpoint
-            at the <code class="code">jakarta.websocket.server.ServerContainer</code> instance. It allows the user to create the configuration
+    </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e786"></a>5.1.&nbsp;<code class="code">javax.websocket.server.ServerEndpointConfig</code></h2></div></div></div><p>
+            The <code class="code">javax.websocket.server.ServerEndpointConfig</code> is used when deploying the endpoint either via
+            implementing the <code class="code">javax.websocket.server.ServerApplicationConfig</code>, or via registering the programmatic endpoint
+            at the <code class="code">javax.websocket.server.ServerContainer</code> instance. It allows the user to create the configuration
             programmatically.
         </p><p>
             The following example is used to deploy the EchoEndpoint programmatically. In the method
@@ -69,16 +69,16 @@
         return userProperties;
     }
 }</pre></div></div><br class="example-break"><p>
-            To make the development easy the <span class="emphasis"><em>jakarta.websocket.server.ServerEndpointConfig</em></span> provides a builder to construct
+            To make the development easy the <span class="emphasis"><em>javax.websocket.server.ServerEndpointConfig</em></span> provides a builder to construct
             the configuration object:
             </p><div class="example"><a name="d0e833"></a><p class="title"><b>Example&nbsp;5.2.&nbsp;ServerEndpointConfigu built using Builder</b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">ServerEndpointConfig config = ServerEndpointConfig.Builder.create(EchoEndpoint.class,"/echo").
     decoders(Arrays.&lt;Class&lt;? extends Decoder&gt;&gt;asList(JsonDecoder.class)).
     encoders(Arrays.&lt;Class&lt; extends Encoder&gt;&gt;asList(JsonEncoder.class)).build();</pre></div></div><p><br class="example-break">
-        </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e839"></a>5.2.&nbsp;<code class="code">jakarta.websocket.ClientEndpointConfig</code></h2></div></div></div><p>
-            The <code class="code">jakarta.websocket.ClientEndpointConfig</code> is used when deploying the programmatic client endpoint
+        </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e839"></a>5.2.&nbsp;<code class="code">javax.websocket.ClientEndpointConfig</code></h2></div></div></div><p>
+            The <code class="code">javax.websocket.ClientEndpointConfig</code> is used when deploying the programmatic client endpoint
             via registering the programmatic endpoint at the <code class="code">WebSocketContainer</code> instance. Some of
             the configuration methods come from the <code class="code">EndpointConfig</code>class, which is extended by both
-            <code class="code">jakarta.websocket.server.ServerEndpointConfig</code> and <code class="code">jakarta.websocket.ClientEndpointConfig</code>. Then there are methods
+            <code class="code">javax.websocket.server.ServerEndpointConfig</code> and <code class="code">javax.websocket.ClientEndpointConfig</code>. Then there are methods
             for configuring the preferred subprotocols the client endpoint wants to use and supported extensions. It is
             also possible to use the ClientEndpointConfig.Configurator in order to be able to affect the endpoint behaviour
             before and after request.

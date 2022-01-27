@@ -1,5 +1,5 @@
-jakarta.websocket
-jakarta.websocket.server
+javax.websocket
+javax.websocket.server
 org.glassfish.tyrus.client
 org.glassfish.tyrus.client.auth
 org.glassfish.tyrus.container.grizzly.client

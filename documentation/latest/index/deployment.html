@@ -1,29 +1,29 @@
 <html><head>
       <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-   <title>Chapter&nbsp;3.&nbsp;Deploying WebSocket Endpoints</title><link rel="stylesheet" type="text/css" href="/documentation.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Tyrus 2.0.0 User Guide"><link rel="up" href="index.html" title="Tyrus 2.0.0 User Guide"><link rel="prev" href="modules-and-dependencies.html" title="Chapter&nbsp;2.&nbsp;Tyrus Modules and Dependencies"><link rel="next" href="websocket-api.html" title="Chapter&nbsp;4.&nbsp;WebSocket API Endpoints, Sessions and MessageHandlers"></head><body class="contents"><div class="contents" bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter&nbsp;3.&nbsp;Deploying WebSocket Endpoints</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="modules-and-dependencies.html">Prev</a>&nbsp;</td><th width="60%" align="center">&nbsp;</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="websocket-api.html">Next</a></td></tr></table><hr></div><div lang="en" class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="deployment"></a>Chapter&nbsp;3.&nbsp;Deploying WebSocket Endpoints</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="deployment.html#d0e335">3.1. Deploying Endpoints as a WAR file</a></span></dt><dd><dl><dt><span class="section"><a href="deployment.html#d0e360">3.1.1. Deployment Algorithm</a></span></dt></dl></dd><dt><span class="section"><a href="deployment.html#d0e411">3.2. Deploying endpoints via <code class="code">jakarta.websocket.server.ServerContainer</code></a></span></dt></dl></div><p>
+   <title>Chapter&nbsp;3.&nbsp;Deploying WebSocket Endpoints</title><link rel="stylesheet" type="text/css" href="/tyrus-project.github.io/documentation.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Tyrus 1.18 User Guide"><link rel="up" href="index.html" title="Tyrus 1.18 User Guide"><link rel="prev" href="modules-and-dependencies.html" title="Chapter&nbsp;2.&nbsp;Tyrus Modules and Dependencies"><link rel="next" href="websocket-api.html" title="Chapter&nbsp;4.&nbsp;WebSocket API Endpoints, Sessions and MessageHandlers"></head><body class="contents"><div class="contents" bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter&nbsp;3.&nbsp;Deploying WebSocket Endpoints</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="modules-and-dependencies.html">Prev</a>&nbsp;</td><th width="60%" align="center">&nbsp;</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="websocket-api.html">Next</a></td></tr></table><hr></div><div lang="en" class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="deployment"></a>Chapter&nbsp;3.&nbsp;Deploying WebSocket Endpoints</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="deployment.html#d0e335">3.1. Deploying Endpoints as a WAR file</a></span></dt><dd><dl><dt><span class="section"><a href="deployment.html#d0e360">3.1.1. Deployment Algorithm</a></span></dt></dl></dd><dt><span class="section"><a href="deployment.html#d0e411">3.2. Deploying endpoints via <code class="code">javax.websocket.server.ServerContainer</code></a></span></dt></dl></div><p>
         Deploying WebSocket endpoints can be done in two ways. Either deploying via putting the endpoint in the WAR
     file, or using the ServerContainer methods to deploy the programmatic endpoint in the deployment phase.
     </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e335"></a>3.1.&nbsp;Deploying Endpoints as a WAR file</h2></div></div></div><p>
             The classes that are scanned for in WAR are the following ones:
             </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: opencircle; "><li class="listitem" style="list-style-type: circle"><p>
-                        Classes that implement the <code class="code">jakarta.websocket.ServerApplicationConfig</code>.
+                        Classes that implement the <code class="code">javax.websocket.ServerApplicationConfig</code>.
                     </p></li><li class="listitem" style="list-style-type: circle"><p>
-                        Classes annotated with <code class="code">jakarta.websocket.server.ServerEndpoint</code>.
+                        Classes annotated with <code class="code">javax.websocket.server.ServerEndpoint</code>.
                     </p></li><li class="listitem" style="list-style-type: circle"><p>
-                        Classes that extend <code class="code">jakarta.websocket.Endpoint</code>.
+                        Classes that extend <code class="code">javax.websocket.Endpoint</code>.
                     </p></li></ul></div><p>
         </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d0e360"></a>3.1.1.&nbsp;Deployment Algorithm</h3></div></div></div><p>
                 </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
                         If one or more classes implementing ServerApplicationConfiguration are present in the WAR file, Tyrus deploys endpoints
                         provided by all of these classes. Tyrus doesn't deploy any other classes present in the WAR (annotated by
-                        <code class="code">jakarta.websocket.server.ServerEndpoint</code> or extending <code class="code">jakarta.websocket.Endpoint</code>).
+                        <code class="code">javax.websocket.server.ServerEndpoint</code> or extending <code class="code">javax.websocket.Endpoint</code>).
                     </li><li class="listitem">
                         If no class implementing ServerApplicationConfiguration is present, Tyrus deploys all classes annotated
                         with @ServerEndpoint or extending Endpoint present in the WAR.
                     </li></ol></div><p>
             </p></div><p>
             Let's have the following classes in the WAR:
-            </p><div class="example"><a name="deployment-serverapplicationconfig"></a><p class="title"><b>Example&nbsp;3.1.&nbsp;Deployment of WAR containing several classes extending <code class="code">jakarta.websocket.server.ServerApplicationConfig</code></b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">public class MyApplicationConfigOne implements ServerApplicationConfig {
+            </p><div class="example"><a name="deployment-serverapplicationconfig"></a><p class="title"><b>Example&nbsp;3.1.&nbsp;Deployment of WAR containing several classes extending <code class="code">javax.websocket.server.ServerApplicationConfig</code></b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">public class MyApplicationConfigOne implements ServerApplicationConfig {
     public Set&lt;ServerEndpointConfig&gt; getEndpointConfigs(Set&lt;Class&lt;? extends Endpoint&gt;&gt; endpointClasses);
         Set&lt;Class&lt;? extends Endpoint&gt;&gt; s = new HashSet&lt;Class&lt;? extends Endpoint&gt;&gt;;
         s.add(ProgrammaticEndpointOne.class);
@@ -82,10 +82,10 @@ public class ProgrammaticEndpointThree extends Endpoint {
             <code class="code">AnnotatedEndpointThree</code> and <code class="code">ProgrammaticEndpointThree</code> will not be
             deployed, as these are not returned by the respective
             methods of <code class="code">MyApplicationConfigOne</code> nor <code class="code">MyApplicationConfigTwo</code>.
-        </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e411"></a>3.2.&nbsp;Deploying endpoints via <code class="code">jakarta.websocket.server.ServerContainer</code></h2></div></div></div><p>
-            Endpoints may be deployed using <code class="code">jakarta.websocket.server.ServerContainer</code> during the application initialization phase.
+        </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e411"></a>3.2.&nbsp;Deploying endpoints via <code class="code">javax.websocket.server.ServerContainer</code></h2></div></div></div><p>
+            Endpoints may be deployed using <code class="code">javax.websocket.server.ServerContainer</code> during the application initialization phase.
             For websocket enabled web containers, developers may obtain a reference to the ServerContainer instance by
-            retrieving it as an attribute named <code class="code">jakarta.websocket.server.ServerContainer</code> on the ServletContext, see
+            retrieving it as an attribute named <code class="code">javax.websocket.server.ServerContainer</code> on the ServletContext, see
             the following example for annotated endpoint:
             </p><div class="example"><a name="deployment-servercontainer"></a><p class="title"><b>Example&nbsp;3.2.&nbsp;Deployment of Annotated Endpoint Using ServerContainer</b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">@WebListener
 @ServerEndpoint("/annotated")
@@ -94,7 +94,7 @@ public class MyServletContextListenerAnnotated implements ServletContextListener
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         final ServerContainer serverContainer = (ServerContainer) servletContextEvent.getServletContext()
-                                                    .getAttribute("jakarta.websocket.server.ServerContainer");
+                                                    .getAttribute("javax.websocket.server.ServerContainer");
 
         try {
             serverContainer.addEndpoint(MyServletContextListenerAnnotated.class);
