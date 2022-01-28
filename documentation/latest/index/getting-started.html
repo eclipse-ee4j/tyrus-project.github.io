@@ -1,6 +1,6 @@
 <html><head>
       <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-   <title>Chapter&nbsp;1.&nbsp;Getting Started</title><link rel="stylesheet" type="text/css" href="/tyrus-project.github.io/documentation.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Tyrus 1.18 User Guide"><link rel="up" href="index.html" title="Tyrus 1.18 User Guide"><link rel="prev" href="preface.html" title="Preface"><link rel="next" href="modules-and-dependencies.html" title="Chapter&nbsp;2.&nbsp;Tyrus Modules and Dependencies"></head><body class="contents"><div class="contents" bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter&nbsp;1.&nbsp;Getting Started</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="preface.html">Prev</a>&nbsp;</td><th width="60%" align="center">&nbsp;</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="modules-and-dependencies.html">Next</a></td></tr></table><hr></div><div lang="en" class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="getting-started"></a>Chapter&nbsp;1.&nbsp;Getting Started</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="getting-started.html#getting-started-wsapi-artifact">1.1. WebSocket Services Using Java API for WebSocket</a></span></dt><dd><dl><dt><span class="section"><a href="getting-started.html#d0e35">1.1.1. Creating Annotated Server Endpoint</a></span></dt><dt><span class="section"><a href="getting-started.html#d0e79">1.1.2. Client Endpoint</a></span></dt><dt><span class="section"><a href="getting-started.html#websocket-programmatic-endpoint">1.1.3. Creating Server Endpoint Programmatically</a></span></dt><dt><span class="section"><a href="getting-started.html#standalone-mode">1.1.4. Tyrus in Standalone Mode</a></span></dt></dl></dd></dl></div><p>
+   <title>Chapter&nbsp;1.&nbsp;Getting Started</title><link rel="stylesheet" type="text/css" href="/tyrus-project.github.io/documentation.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Tyrus 2.0.2 User Guide"><link rel="up" href="index.html" title="Tyrus 2.0.2 User Guide"><link rel="prev" href="preface.html" title="Preface"><link rel="next" href="modules-and-dependencies.html" title="Chapter&nbsp;2.&nbsp;Tyrus Modules and Dependencies"></head><body class="contents"><div class="contents" bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter&nbsp;1.&nbsp;Getting Started</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="preface.html">Prev</a>&nbsp;</td><th width="60%" align="center">&nbsp;</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="modules-and-dependencies.html">Next</a></td></tr></table><hr></div><div lang="en" class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="getting-started"></a>Chapter&nbsp;1.&nbsp;Getting Started</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="getting-started.html#getting-started-wsapi-artifact">1.1. WebSocket Services Using Java API for WebSocket</a></span></dt><dd><dl><dt><span class="section"><a href="getting-started.html#d0e35">1.1.1. Creating Annotated Server Endpoint</a></span></dt><dt><span class="section"><a href="getting-started.html#d0e79">1.1.2. Client Endpoint</a></span></dt><dt><span class="section"><a href="getting-started.html#websocket-programmatic-endpoint">1.1.3. Creating Server Endpoint Programmatically</a></span></dt><dt><span class="section"><a href="getting-started.html#standalone-mode">1.1.4. Tyrus in Standalone Mode</a></span></dt></dl></dd></dl></div><p>
         This chapter provides a quick introduction on how to get started building
         WebSocket services using Java API for WebSocket and Tyrus. The example described here presents how to implement
         simple websocket service as JavaEE web application that can be deployed on any servlet container
@@ -8,9 +8,9 @@
     </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="getting-started-wsapi-artifact"></a>1.1.&nbsp;WebSocket Services Using Java API for WebSocket</h2></div></div></div><p>
                 First, to use the Java API for WebSocket in your project you need to depend on the following artifact:
 </p><pre class="&#xA;    toolbar: false;&#xA;    brush: xml;&#xA;    gutter: false;">&lt;dependency&gt;
-    &lt;groupId&gt;javax.websocket&lt;/groupId&gt;
-    &lt;artifactId&gt;javax.websocket-api&lt;/artifactId&gt;
-    &lt;version&gt;1.1&lt;/version&gt;
+    &lt;groupId&gt;jakarta.websocket&lt;/groupId&gt;
+    &lt;artifactId&gt;jakarta.websocket-api&lt;/artifactId&gt;
+    &lt;version&gt;2.0.0&lt;/version&gt;
 &lt;/dependency&gt;
 </pre><p>
             </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d0e35"></a>1.1.1.&nbsp;Creating Annotated Server Endpoint</h3></div></div></div><p>
@@ -19,8 +19,8 @@
             </p><p>
                 In Java API for WebSocket and Tyrus, there are two basic approaches how to create an endpoint - either annotated endpoint,
                 or programmatic endpoint.
-                By annotated endpoint we mean endpoint constructed by using annotations (<code class="code">javax.websocket.server.ServerEndpoint</code>
-                for server endpoint and <code class="code">javax.websocket.ClientEndpoint</code> for client endpoint), like in
+                By annotated endpoint we mean endpoint constructed by using annotations (<code class="code">jakarta.websocket.server.ServerEndpoint</code>
+                for server endpoint and <code class="code">jakarta.websocket.ClientEndpoint</code> for client endpoint), like in
                 <a class="link" href="getting-started.html#websocket-annotated-echo-endpoint" title="Example&nbsp;1.1.&nbsp;Annotated Echo Endpoint">"Annotated Echo Endpoint"</a>.
                 </p><div class="example"><a name="websocket-annotated-echo-endpoint"></a><p class="title"><b>Example&nbsp;1.1.&nbsp;Annotated Echo Endpoint</b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">@ServerEndpoint(value = "/echo")
 public class EchoEndpointAnnotated {
@@ -49,16 +49,16 @@ public class EchoEndpointAnnotated {
                 </p><p>
                     The example <a class="link" href="getting-started.html#websocket-client-endpoint" title="Example&nbsp;1.2.&nbsp;Client Endpoint">"Client Endpoint"</a> utilizes the concept
                     of the programmatic endpoint. By programmatic endpoint we mean endpoint which is created by extending
-                    class <code class="code">javax.websocket.Endpoint</code>.
+                    class <code class="code">jakarta.websocket.Endpoint</code>.
                     The example is standalone java application which needs to depend on some Tyrus artifacts to work
                     correctly, see <a class="link" href="getting-started.html#standalone-mode" title="1.1.4.&nbsp;Tyrus in Standalone Mode">"Tyrus Standalone Mode"</a>.
                     In the example first the <code class="code">CountDownLatch</code> is initialized. It is needed as a bocking data
                     structure - on line 31 it either waits for 100 seconds, or until it gets counted down (line 22).
-                    On line 9 the <code class="code">javax.websocket.ClientEndpointConfig</code> is created -  we will need it later
+                    On line 9 the <code class="code">jakarta.websocket.ClientEndpointConfig</code> is created -  we will need it later
                     to connect the endpoint to the server. On line 11 the <code class="code">org.glassfish.tyrus.client.ClientManager</code>
-                    is created. it implements the <code class="code">javax.websocket.WebSocketContainer</code> and is used to connect
+                    is created. it implements the <code class="code">jakarta.websocket.WebSocketContainer</code> and is used to connect
                     to server. This happens on next line. The client endpoint functionality is contained in the <code class="code">
-                    javax.websocket.Endpoint</code> lazy instantiation. In the <code class="code">onOpen</code> method new MessageHandler
+                    jakarta.websocket.Endpoint</code> lazy instantiation. In the <code class="code">onOpen</code> method new MessageHandler
                     is registered (the received message is just printed on the console and the latch is counted down). After
                     the registration the message is sent to the server (line 25).
                     </p><div class="example"><a name="websocket-client-endpoint"></a><p class="title"><b>Example&nbsp;1.2.&nbsp;Client Endpoint</b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">public class DocClient {
@@ -117,10 +117,10 @@ public class EchoEndpointAnnotated {
 }</pre></div></div><p><br class="example-break">
         </p><p>
             The functionality of the <code class="code">EchoEndpointProgrammatic</code> is fairly simple - to send the received message back to the sender.
-            The programmatic server endpoint needs to extend <code class="code">javax.websocket.Endpoint</code> - line 1.
+            The programmatic server endpoint needs to extend <code class="code">jakarta.websocket.Endpoint</code> - line 1.
             Mehod <code class="code">public void onOpen(final Session session, EndpointConfig config)</code> gets called once new
             connection to this endpoin0t is opened. In this method the <code class="code">MessageHandler</code> is registered to the
-            <code class="code">javax.websocket.Session</code> instance, which opened the connection. Method <code class="code">public void
+            <code class="code">jakarta.websocket.Session</code> instance, which opened the connection. Method <code class="code">public void
             onMessage(String message)</code> gets called once the message is received. On line 8 the message
             is sent back to the sender.
         </p></div><p>
@@ -135,13 +135,13 @@ public class EchoEndpointAnnotated {
 </p><pre class="&#xA;    toolbar: false;&#xA;    brush: xml;&#xA;    gutter: false;">&lt;dependency&gt;
     &lt;groupId&gt;org.glassfish.tyrus&lt;/groupId&gt;
     &lt;artifactId&gt;tyrus-server&lt;/artifactId&gt;
-    &lt;version&gt;1.18&lt;/version&gt;
+    &lt;version&gt;2.0.2&lt;/version&gt;
 &lt;/dependency&gt;
 
 &lt;dependency&gt;
     &lt;groupId&gt;org.glassfish.tyrus&lt;/groupId&gt;
     &lt;artifactId&gt;tyrus-container-grizzly-server&lt;/artifactId&gt;
-    &lt;version&gt;1.18&lt;/version&gt;
+    &lt;version&gt;2.0.2&lt;/version&gt;
 &lt;/dependency&gt;</pre><p>
             </p><p>
                 Let's use the very same example like for Java API for WebSocket and deploy the <code class="code">EchoEndpointAnnotated</code> on the
