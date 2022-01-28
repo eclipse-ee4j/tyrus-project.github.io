@@ -1,7 +1,7 @@
 <html><head>
       <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-   <title>Tyrus 2.0.2 User Guide</title><link rel="stylesheet" type="text/css" href="/tyrus-project.github.io/documentation.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"></head><body class="contents"><div class="contents" bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div lang="en" class="book"><div class="titlepage"><div><div><h1 class="title"><a name="d0e2"></a>Tyrus 2.0.2 User Guide</h1></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="preface"><a href="#preface">Preface</a></span></dt><dt><span class="chapter"><a href="#getting-started">1. Getting Started</a></span></dt><dd><dl><dt><span class="section"><a href="#getting-started-wsapi-artifact">1.1. WebSocket Services Using Java API for WebSocket</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e34">1.1.1. Creating Annotated Server Endpoint</a></span></dt><dt><span class="section"><a href="#d0e78">1.1.2. Client Endpoint</a></span></dt><dt><span class="section"><a href="#websocket-programmatic-endpoint">1.1.3. Creating Server Endpoint Programmatically</a></span></dt><dt><span class="section"><a href="#standalone-mode">1.1.4. Tyrus in Standalone Mode</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#modules-and-dependencies">2. Tyrus Modules and Dependencies</a></span></dt><dt><span class="chapter"><a href="#deployment">3. Deploying WebSocket Endpoints</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e334">3.1. Deploying Endpoints as a WAR file</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e359">3.1.1. Deployment Algorithm</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e410">3.2. Deploying endpoints via <code class="code">jakarta.websocket.server.ServerContainer</code></a></span></dt></dl></dd><dt><span class="chapter"><a href="#websocket-api">4. WebSocket API Endpoints, Sessions and MessageHandlers</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e440">4.1. Endpoint Classes</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e464">4.1.1. jakarta.websocket.server.ServerEndpoint</a></span></dt><dt><span class="section"><a href="#d0e599">4.1.2. jakarta.websocket.ClientEndpoint</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e641">4.2. Endpoint method-level annotations</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e644">4.2.1. @OnOpen</a></span></dt><dt><span class="section"><a href="#d0e657">4.2.2. @OnClose</a></span></dt><dt><span class="section"><a href="#d0e670">4.2.3. @OnError</a></span></dt><dt><span class="section"><a href="#d0e683">4.2.4. @OnMessage</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e696">4.3. MessageHandlers</a></span></dt></dl></dd><dt><span class="chapter"><a href="#configurations">5. Configurations</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e785">5.1. <code class="code">jakarta.websocket.server.ServerEndpointConfig</code></a></span></dt><dt><span class="section"><a href="#d0e838">5.2. <code class="code">jakarta.websocket.ClientEndpointConfig</code></a></span></dt></dl></dd><dt><span class="chapter"><a href="#lifecycle">6. Endpoint Lifecycle, Sessions, Sending Messages</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e870">6.1. Endpoint Lifecycle</a></span></dt><dt><span class="section"><a href="#d0e890">6.2. <code class="code">jakarta.websocket.Session</code></a></span></dt><dt><span class="section"><a href="#d0e975">6.3. Sending Messages</a></span></dt><dt><span class="section"><a href="#d0e1007">6.4. RemoteEndpoint</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1021">6.4.1. <code class="code">jakarta.websocket.RemoteEndpoint.Basic</code></a></span></dt><dt><span class="section"><a href="#d0e1045">6.4.2. <code class="code">jakarta.websocket.RemoteEndpoint.Async</code></a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#injection">7. Injection Support</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1075">7.1. <code class="code">jakarta.inject.Inject</code> sample</a></span></dt><dt><span class="section"><a href="#d0e1102">7.2. EJB sample</a></span></dt></dl></dd><dt><span class="chapter"><a href="#tyrus-proprietary-config">8. Tyrus proprietary configuration</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1128">8.1. Client-side SSL configuration</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1149">8.1.1. Host verification</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e1171">8.2. Asynchronous connectToServer methods</a></span></dt><dt><span class="section"><a href="#d0e1184">8.3. Optimized broadcast</a></span></dt><dt><span class="section"><a href="#d0e1197">8.4. Incoming buffer size</a></span></dt><dt><span class="section"><a href="#d0e1215">8.5. Shared client container</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1237">8.5.1. Custom masking key generator</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e1258">8.6. WebSocket Extensions</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1283">8.6.1. ExtendedExtension sample</a></span></dt><dt><span class="section"><a href="#d0e1304">8.6.2. Per Message Deflate Extension</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e1311">8.7. Client reconnect</a></span></dt><dt><span class="section"><a href="#d0e1323">8.8. Client behind proxy</a></span></dt><dt><span class="section"><a href="#d0e1331">8.9. JDK 7 client</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1353">8.9.1. SSL configuration</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e1373">8.10. Tracing support</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1381">8.10.1. Configuration</a></span></dt><dt><span class="section"><a href="#d0e1447">8.10.2. Tracing Examples</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e1475">8.11. Client handshake request and response logging</a></span></dt><dt><span class="section"><a href="#d0e1483">8.12. JMX Monitoring</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1557">8.12.1. Configuration</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e1574">8.13. Maximal number of open sessions on server-side</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1593">8.13.1. Maximal number of open sessions per application</a></span></dt><dt><span class="section"><a href="#d0e1615">8.13.2. Maximal number of open sessions per remote address</a></span></dt><dt><span class="section"><a href="#d0e1643">8.13.3. Maximal number of open sessions per endpoint</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e1658">8.14. Client HTTP Authentication</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1683">8.14.1. Credentials</a></span></dt><dt><span class="section"><a href="#d0e1691">8.14.2. Auth Configuration</a></span></dt><dt><span class="section"><a href="#d0e1709">8.14.3. User defined authenticator</a></span></dt><dt><span class="section"><a href="#d0e1736">8.14.4. Examples</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e1774">8.15. Client HTTP Redirect</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1791">8.15.1. Supported HTTP response codes</a></span></dt><dt><span class="section"><a href="#d0e1816">8.15.2. Configuration</a></span></dt><dt><span class="section"><a href="#d0e1848">8.15.3. Exception handling</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e1885">8.16. Client support for HTTP status 503 - Service Unavailable with Retry-After header</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1906">8.16.1. Configuration</a></span></dt></dl></dd></dl></dd></dl></div><div class="list-of-tables"><p><b>List of Tables</b></p><dl><dt>2.1. <a href="#dependencies-table-modules">Tyrus core modules</a></dt><dt>2.2. <a href="#dependencies-table-containers">Tyrus containers</a></dt></dl></div><div class="list-of-examples"><p><b>List of Examples</b></p><dl><dt>1.1. <a href="#websocket-annotated-echo-endpoint">Annotated Echo Endpoint</a></dt><dt>1.2. <a href="#websocket-client-endpoint">Client Endpoint</a></dt><dt>1.3. <a href="#websocket-programmatic-echo-endpoint">Programmatic Echo Endpoint</a></dt><dt>3.1. <a href="#deployment-serverapplicationconfig">Deployment of WAR containing several classes extending <code class="code">jakarta.websocket.server.ServerApplicationConfig</code></a></dt><dt>3.2. <a href="#deployment-servercontainer">Deployment of Annotated Endpoint Using ServerContainer</a></dt><dt>4.1. <a href="#endpoints-echo-endpoint">Echo sample server endpoint.</a></dt><dt>4.2. <a href="#endpoints-serverendpoint-annotation">jakarta.websocket.server.ServerEndpoint with all fields specified</a></dt><dt>4.3. <a href="#d0e510">Specifying URI path parameter</a></dt><dt>4.4. <a href="#d0e528">SampleDecoder</a></dt><dt>4.5. <a href="#d0e546">SampleEncoder</a></dt><dt>4.6. <a href="#d0e604">SampleClientEndpoint</a></dt><dt>4.7. <a href="#d0e651">@OnOpen with Session and EndpointConfig parameters.</a></dt><dt>4.8. <a href="#d0e664">@OnClose with Session and CloseReason parameters.</a></dt><dt>4.9. <a href="#d0e677">@OnError with Session and Throwable parameters.</a></dt><dt>4.10. <a href="#d0e690">@OnError with Session and Throwable parameters.</a></dt><dt>4.11. <a href="#d0e709">MessageHandler basic example</a></dt><dt>5.1. <a href="#d0e822">Configuration for EchoEndpoint Deployment</a></dt><dt>5.2. <a href="#d0e832">ServerEndpointConfigu built using Builder</a></dt><dt>5.3. <a href="#d0e861">ClientEndpointConfig built using Builder</a></dt><dt>6.1. <a href="#lifecycle-echo-sample">Lifecycle echo sample</a></dt><dt>6.2. <a href="#lifecycle-onmessage-sample">Sending message in @OnMessage</a></dt><dt>6.3. <a href="#lifecycle-remote-endpoint-sample">Sending message via RemoteEndpoint.Basic instance</a></dt><dt>6.4. <a href="#lifecycle-remote-endpoint-partial-sample">Method for sending partial text message</a></dt><dt>6.5. <a href="#lifecycle-remote-endpoint-async-future">Sending mesage the async way using Future</a></dt><dt>7.1. <a href="#cdi-simple-bean">Injecting bean into <code class="code">jakarta.websocket.server.ServerEndpoint</code></a></dt><dt>7.2. <a href="#cdi-singleton-bean">Echo sample server endpoint.</a></dt></dl></div><div class="preface"><div class="titlepage"><div><div><h1 class="title"><a name="preface"></a>Preface</h1></div></div></div><p>
-            This is user guide for Tyrus 2.0.2. We are trying to keep it up to date
+   <title>Tyrus 1.18 User Guide</title><link rel="stylesheet" type="text/css" href="/tyrus-project.github.io/documentation.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"></head><body class="contents"><div class="contents" bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div lang="en" class="book"><div class="titlepage"><div><div><h1 class="title"><a name="d0e2"></a>Tyrus 1.18 User Guide</h1></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="preface"><a href="#preface">Preface</a></span></dt><dt><span class="chapter"><a href="#getting-started">1. Getting Started</a></span></dt><dd><dl><dt><span class="section"><a href="#getting-started-wsapi-artifact">1.1. WebSocket Services Using Java API for WebSocket</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e34">1.1.1. Creating Annotated Server Endpoint</a></span></dt><dt><span class="section"><a href="#d0e78">1.1.2. Client Endpoint</a></span></dt><dt><span class="section"><a href="#websocket-programmatic-endpoint">1.1.3. Creating Server Endpoint Programmatically</a></span></dt><dt><span class="section"><a href="#standalone-mode">1.1.4. Tyrus in Standalone Mode</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#modules-and-dependencies">2. Tyrus Modules and Dependencies</a></span></dt><dt><span class="chapter"><a href="#deployment">3. Deploying WebSocket Endpoints</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e334">3.1. Deploying Endpoints as a WAR file</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e359">3.1.1. Deployment Algorithm</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e410">3.2. Deploying endpoints via <code class="code">javax.websocket.server.ServerContainer</code></a></span></dt></dl></dd><dt><span class="chapter"><a href="#websocket-api">4. WebSocket API Endpoints, Sessions and MessageHandlers</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e440">4.1. Endpoint Classes</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e464">4.1.1. javax.websocket.server.ServerEndpoint</a></span></dt><dt><span class="section"><a href="#d0e599">4.1.2. javax.websocket.ClientEndpoint</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e641">4.2. Endpoint method-level annotations</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e644">4.2.1. @OnOpen</a></span></dt><dt><span class="section"><a href="#d0e657">4.2.2. @OnClose</a></span></dt><dt><span class="section"><a href="#d0e670">4.2.3. @OnError</a></span></dt><dt><span class="section"><a href="#d0e683">4.2.4. @OnMessage</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e696">4.3. MessageHandlers</a></span></dt></dl></dd><dt><span class="chapter"><a href="#configurations">5. Configurations</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e785">5.1. <code class="code">javax.websocket.server.ServerEndpointConfig</code></a></span></dt><dt><span class="section"><a href="#d0e838">5.2. <code class="code">javax.websocket.ClientEndpointConfig</code></a></span></dt></dl></dd><dt><span class="chapter"><a href="#lifecycle">6. Endpoint Lifecycle, Sessions, Sending Messages</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e870">6.1. Endpoint Lifecycle</a></span></dt><dt><span class="section"><a href="#d0e890">6.2. <code class="code">javax.websocket.Session</code></a></span></dt><dt><span class="section"><a href="#d0e975">6.3. Sending Messages</a></span></dt><dt><span class="section"><a href="#d0e1007">6.4. RemoteEndpoint</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1021">6.4.1. <code class="code">javax.websocket.RemoteEndpoint.Basic</code></a></span></dt><dt><span class="section"><a href="#d0e1045">6.4.2. <code class="code">javax.websocket.RemoteEndpoint.Async</code></a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#injection">7. Injection Support</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1075">7.1. <code class="code">javax.inject.Inject</code> sample</a></span></dt><dt><span class="section"><a href="#d0e1102">7.2. EJB sample</a></span></dt></dl></dd><dt><span class="chapter"><a href="#tyrus-proprietary-config">8. Tyrus proprietary configuration</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1128">8.1. Client-side SSL configuration</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1149">8.1.1. Host verification</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e1171">8.2. Asynchronous connectToServer methods</a></span></dt><dt><span class="section"><a href="#d0e1184">8.3. Optimized broadcast</a></span></dt><dt><span class="section"><a href="#d0e1197">8.4. Incoming buffer size</a></span></dt><dt><span class="section"><a href="#d0e1215">8.5. Shared client container</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1237">8.5.1. Custom masking key generator</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e1258">8.6. WebSocket Extensions</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1283">8.6.1. ExtendedExtension sample</a></span></dt><dt><span class="section"><a href="#d0e1304">8.6.2. Per Message Deflate Extension</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e1311">8.7. Client reconnect</a></span></dt><dt><span class="section"><a href="#d0e1323">8.8. Client behind proxy</a></span></dt><dt><span class="section"><a href="#d0e1331">8.9. JDK 7 client</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1353">8.9.1. SSL configuration</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e1373">8.10. Tracing support</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1381">8.10.1. Configuration</a></span></dt><dt><span class="section"><a href="#d0e1447">8.10.2. Tracing Examples</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e1475">8.11. Client handshake request and response logging</a></span></dt><dt><span class="section"><a href="#d0e1483">8.12. JMX Monitoring</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1557">8.12.1. Configuration</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e1574">8.13. Maximal number of open sessions on server-side</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1593">8.13.1. Maximal number of open sessions per application</a></span></dt><dt><span class="section"><a href="#d0e1615">8.13.2. Maximal number of open sessions per remote address</a></span></dt><dt><span class="section"><a href="#d0e1643">8.13.3. Maximal number of open sessions per endpoint</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e1658">8.14. Client HTTP Authentication</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1683">8.14.1. Credentials</a></span></dt><dt><span class="section"><a href="#d0e1691">8.14.2. Auth Configuration</a></span></dt><dt><span class="section"><a href="#d0e1709">8.14.3. User defined authenticator</a></span></dt><dt><span class="section"><a href="#d0e1736">8.14.4. Examples</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e1774">8.15. Client HTTP Redirect</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1791">8.15.1. Supported HTTP response codes</a></span></dt><dt><span class="section"><a href="#d0e1816">8.15.2. Configuration</a></span></dt><dt><span class="section"><a href="#d0e1848">8.15.3. Exception handling</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e1885">8.16. Client support for HTTP status 503 - Service Unavailable with Retry-After header</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1906">8.16.1. Configuration</a></span></dt></dl></dd></dl></dd></dl></div><div class="list-of-tables"><p><b>List of Tables</b></p><dl><dt>2.1. <a href="#dependencies-table-modules">Tyrus core modules</a></dt><dt>2.2. <a href="#dependencies-table-containers">Tyrus containers</a></dt></dl></div><div class="list-of-examples"><p><b>List of Examples</b></p><dl><dt>1.1. <a href="#websocket-annotated-echo-endpoint">Annotated Echo Endpoint</a></dt><dt>1.2. <a href="#websocket-client-endpoint">Client Endpoint</a></dt><dt>1.3. <a href="#websocket-programmatic-echo-endpoint">Programmatic Echo Endpoint</a></dt><dt>3.1. <a href="#deployment-serverapplicationconfig">Deployment of WAR containing several classes extending <code class="code">javax.websocket.server.ServerApplicationConfig</code></a></dt><dt>3.2. <a href="#deployment-servercontainer">Deployment of Annotated Endpoint Using ServerContainer</a></dt><dt>4.1. <a href="#endpoints-echo-endpoint">Echo sample server endpoint.</a></dt><dt>4.2. <a href="#endpoints-serverendpoint-annotation">javax.websocket.server.ServerEndpoint with all fields specified</a></dt><dt>4.3. <a href="#d0e510">Specifying URI path parameter</a></dt><dt>4.4. <a href="#d0e528">SampleDecoder</a></dt><dt>4.5. <a href="#d0e546">SampleEncoder</a></dt><dt>4.6. <a href="#d0e604">SampleClientEndpoint</a></dt><dt>4.7. <a href="#d0e651">@OnOpen with Session and EndpointConfig parameters.</a></dt><dt>4.8. <a href="#d0e664">@OnClose with Session and CloseReason parameters.</a></dt><dt>4.9. <a href="#d0e677">@OnError with Session and Throwable parameters.</a></dt><dt>4.10. <a href="#d0e690">@OnError with Session and Throwable parameters.</a></dt><dt>4.11. <a href="#d0e709">MessageHandler basic example</a></dt><dt>5.1. <a href="#d0e822">Configuration for EchoEndpoint Deployment</a></dt><dt>5.2. <a href="#d0e832">ServerEndpointConfigu built using Builder</a></dt><dt>5.3. <a href="#d0e861">ClientEndpointConfig built using Builder</a></dt><dt>6.1. <a href="#lifecycle-echo-sample">Lifecycle echo sample</a></dt><dt>6.2. <a href="#lifecycle-onmessage-sample">Sending message in @OnMessage</a></dt><dt>6.3. <a href="#lifecycle-remote-endpoint-sample">Sending message via RemoteEndpoint.Basic instance</a></dt><dt>6.4. <a href="#lifecycle-remote-endpoint-partial-sample">Method for sending partial text message</a></dt><dt>6.5. <a href="#lifecycle-remote-endpoint-async-future">Sending mesage the async way using Future</a></dt><dt>7.1. <a href="#cdi-simple-bean">Injecting bean into <code class="code">javax.websocket.server.ServerEndpoint</code></a></dt><dt>7.2. <a href="#cdi-singleton-bean">Echo sample server endpoint.</a></dt></dl></div><div class="preface"><div class="titlepage"><div><div><h1 class="title"><a name="preface"></a>Preface</h1></div></div></div><p>
+            This is user guide for Tyrus 1.18. We are trying to keep it up to date
             as we add new features. Please use also our API documentation linked
             from the
             <a class="link" href="https://projects.eclipse.org/projects/ee4j.tyrus" target="_top">Tyrus</a> and
@@ -19,9 +19,9 @@
     </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="getting-started-wsapi-artifact"></a>1.1.&nbsp;WebSocket Services Using Java API for WebSocket</h2></div></div></div><p>
                 First, to use the Java API for WebSocket in your project you need to depend on the following artifact:
 </p><pre class="&#xA;    toolbar: false;&#xA;    brush: xml;&#xA;    gutter: false;">&lt;dependency&gt;
-    &lt;groupId&gt;jakarta.websocket&lt;/groupId&gt;
-    &lt;artifactId&gt;jakarta.websocket-api&lt;/artifactId&gt;
-    &lt;version&gt;2.0.0&lt;/version&gt;
+    &lt;groupId&gt;javax.websocket&lt;/groupId&gt;
+    &lt;artifactId&gt;javax.websocket-api&lt;/artifactId&gt;
+    &lt;version&gt;1.1&lt;/version&gt;
 &lt;/dependency&gt;
 </pre><p>
             </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d0e34"></a>1.1.1.&nbsp;Creating Annotated Server Endpoint</h3></div></div></div><p>
@@ -30,8 +30,8 @@
             </p><p>
                 In Java API for WebSocket and Tyrus, there are two basic approaches how to create an endpoint - either annotated endpoint,
                 or programmatic endpoint.
-                By annotated endpoint we mean endpoint constructed by using annotations (<code class="code">jakarta.websocket.server.ServerEndpoint</code>
-                for server endpoint and <code class="code">jakarta.websocket.ClientEndpoint</code> for client endpoint), like in
+                By annotated endpoint we mean endpoint constructed by using annotations (<code class="code">javax.websocket.server.ServerEndpoint</code>
+                for server endpoint and <code class="code">javax.websocket.ClientEndpoint</code> for client endpoint), like in
                 <a class="link" href="#websocket-annotated-echo-endpoint" title="Example&nbsp;1.1.&nbsp;Annotated Echo Endpoint">"Annotated Echo Endpoint"</a>.
                 </p><div class="example"><a name="websocket-annotated-echo-endpoint"></a><p class="title"><b>Example&nbsp;1.1.&nbsp;Annotated Echo Endpoint</b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">@ServerEndpoint(value = "/echo")
 public class EchoEndpointAnnotated {
@@ -60,16 +60,16 @@ public class EchoEndpointAnnotated {
                 </p><p>
                     The example <a class="link" href="#websocket-client-endpoint" title="Example&nbsp;1.2.&nbsp;Client Endpoint">"Client Endpoint"</a> utilizes the concept
                     of the programmatic endpoint. By programmatic endpoint we mean endpoint which is created by extending
-                    class <code class="code">jakarta.websocket.Endpoint</code>.
+                    class <code class="code">javax.websocket.Endpoint</code>.
                     The example is standalone java application which needs to depend on some Tyrus artifacts to work
                     correctly, see <a class="link" href="#standalone-mode" title="1.1.4.&nbsp;Tyrus in Standalone Mode">"Tyrus Standalone Mode"</a>.
                     In the example first the <code class="code">CountDownLatch</code> is initialized. It is needed as a bocking data
                     structure - on line 31 it either waits for 100 seconds, or until it gets counted down (line 22).
-                    On line 9 the <code class="code">jakarta.websocket.ClientEndpointConfig</code> is created -  we will need it later
+                    On line 9 the <code class="code">javax.websocket.ClientEndpointConfig</code> is created -  we will need it later
                     to connect the endpoint to the server. On line 11 the <code class="code">org.glassfish.tyrus.client.ClientManager</code>
-                    is created. it implements the <code class="code">jakarta.websocket.WebSocketContainer</code> and is used to connect
+                    is created. it implements the <code class="code">javax.websocket.WebSocketContainer</code> and is used to connect
                     to server. This happens on next line. The client endpoint functionality is contained in the <code class="code">
-                    jakarta.websocket.Endpoint</code> lazy instantiation. In the <code class="code">onOpen</code> method new MessageHandler
+                    javax.websocket.Endpoint</code> lazy instantiation. In the <code class="code">onOpen</code> method new MessageHandler
                     is registered (the received message is just printed on the console and the latch is counted down). After
                     the registration the message is sent to the server (line 25).
                     </p><div class="example"><a name="websocket-client-endpoint"></a><p class="title"><b>Example&nbsp;1.2.&nbsp;Client Endpoint</b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">public class DocClient {
@@ -128,10 +128,10 @@ public class EchoEndpointAnnotated {
 }</pre></div></div><p><br class="example-break">
         </p><p>
             The functionality of the <code class="code">EchoEndpointProgrammatic</code> is fairly simple - to send the received message back to the sender.
-            The programmatic server endpoint needs to extend <code class="code">jakarta.websocket.Endpoint</code> - line 1.
+            The programmatic server endpoint needs to extend <code class="code">javax.websocket.Endpoint</code> - line 1.
             Mehod <code class="code">public void onOpen(final Session session, EndpointConfig config)</code> gets called once new
             connection to this endpoin0t is opened. In this method the <code class="code">MessageHandler</code> is registered to the
-            <code class="code">jakarta.websocket.Session</code> instance, which opened the connection. Method <code class="code">public void
+            <code class="code">javax.websocket.Session</code> instance, which opened the connection. Method <code class="code">public void
             onMessage(String message)</code> gets called once the message is received. On line 8 the message
             is sent back to the sender.
         </p></div><p>
@@ -146,13 +146,13 @@ public class EchoEndpointAnnotated {
 </p><pre class="&#xA;    toolbar: false;&#xA;    brush: xml;&#xA;    gutter: false;">&lt;dependency&gt;
     &lt;groupId&gt;org.glassfish.tyrus&lt;/groupId&gt;
     &lt;artifactId&gt;tyrus-server&lt;/artifactId&gt;
-    &lt;version&gt;2.0.2&lt;/version&gt;
+    &lt;version&gt;1.18&lt;/version&gt;
 &lt;/dependency&gt;
 
 &lt;dependency&gt;
     &lt;groupId&gt;org.glassfish.tyrus&lt;/groupId&gt;
     &lt;artifactId&gt;tyrus-container-grizzly-server&lt;/artifactId&gt;
-    &lt;version&gt;2.0.2&lt;/version&gt;
+    &lt;version&gt;1.18&lt;/version&gt;
 &lt;/dependency&gt;</pre><p>
             </p><p>
                 Let's use the very same example like for Java API for WebSocket and deploy the <code class="code">EchoEndpointAnnotated</code> on the
@@ -183,75 +183,75 @@ public class EchoEndpointAnnotated {
         manage dependencies of their applications than developers using ant or other build technologies. The following
         table provides an overview of all Tyrus modules and their dependencies with links to the respective binaries.
     </p><div class="table"><a name="dependencies-table-modules"></a><p class="title"><b>Table&nbsp;2.1.&nbsp;Tyrus core modules</b></p><div class="table-contents"><table summary="Tyrus core modules" border="1"><colgroup><col width="14%" align="left" class="c1"><col width="35%" align="left" class="c2"><col width="51%" align="left" class="c3"></colgroup><thead><tr><th align="left">Module</th><th align="left">Dependencies</th><th align="left">Description</th></tr></thead><tbody><tr><td align="left">
-                        <a class="link" href="http://search.maven.org/#artifactdetails|org.glassfish.tyrus|tyrus-server|2.0.2|jar" target="_top">
+                        <a class="link" href="http://search.maven.org/#artifactdetails|org.glassfish.tyrus|tyrus-server|1.18|jar" target="_top">
                             tyrus-server
                         </a>
                     </td><td align="left">tyrus-core, tyrus-spi, tyrus-websocket-core</td><td align="left">Basic server functionality</td></tr><tr><td align="left">
-                        <a class="link" href="http://search.maven.org/#artifactdetails|org.glassfish.tyrus|tyrus-core|2.0.2|jar" target="_top">
+                        <a class="link" href="http://search.maven.org/#artifactdetails|org.glassfish.tyrus|tyrus-core|1.18|jar" target="_top">
                             tyrus-core
                         </a>
                     </td><td align="left">tyrus-spi, tyrus-websocket-core</td><td align="left">Core Tyrus functionality</td></tr><tr><td align="left">
-                        <a class="link" href="http://search.maven.org/#artifactdetails|org.glassfish.tyrus|tyrus-client|2.0.2|jar" target="_top">
+                        <a class="link" href="http://search.maven.org/#artifactdetails|org.glassfish.tyrus|tyrus-client|1.18|jar" target="_top">
                             tyrus-client
                         </a>
                     </td><td align="left">tyrus-core, tyrus-spi, tyrus-websocket-core</td><td align="left">Basic client functionality</td></tr><tr><td align="left">
-                        <a class="link" href="http://search.maven.org/#artifactdetails|org.glassfish.tyrus|tyrus-documentation|2.0.2|jar" target="_top">
+                        <a class="link" href="http://search.maven.org/#artifactdetails|org.glassfish.tyrus|tyrus-documentation|1.18|jar" target="_top">
                             tyrus-documentation
                         </a>
                     </td><td align="left">[nothing]</td><td align="left">Project documentation</td></tr><tr><td align="left">
-                        <a class="link" href="http://search.maven.org/#artifactdetails|org.glassfish.tyrus|tyrus-websocket-core|2.0.2|jar" target="_top">
+                        <a class="link" href="http://search.maven.org/#artifactdetails|org.glassfish.tyrus|tyrus-websocket-core|1.18|jar" target="_top">
                             tyrus-websocket-core
                         </a>
                     </td><td align="left">[nothing]</td><td align="left">The WebSocket protocol</td></tr><tr><td align="left">
-                        <a class="link" href="http://search.maven.org/remotecontent?filepath=org/glassfish/tyrus/bundles/tyrus-samples/2.0.2/tyrus-samples-2.0.2-all.zip" target="_top">
+                        <a class="link" href="http://search.maven.org/remotecontent?filepath=org/glassfish/tyrus/bundles/tyrus-samples/1.18/tyrus-samples-1.18-all.zip" target="_top">
                             tyrus-samples
                         </a>
                     </td><td align="left">tyrus-server, tyrus-client, tyrus-container-grizzly, tyrus-core, tyrus-spi,
                         tyrus-websocket-core
                     </td><td align="left">Samples of using Java API for WebSocket and Tyrus</td></tr><tr><td align="left">
-                        <a class="link" href="http://search.maven.org/#artifactdetails|org.glassfish.tyrus|tyrus-spi|2.0.2|jar" target="_top">
+                        <a class="link" href="http://search.maven.org/#artifactdetails|org.glassfish.tyrus|tyrus-spi|1.18|jar" target="_top">
                             tyrus-spi
                         </a>
                     </td><td align="left">[nothing]</td><td align="left">SPI</td></tr></tbody></table></div></div><br class="table-break"><div class="table"><a name="dependencies-table-containers"></a><p class="title"><b>Table&nbsp;2.2.&nbsp;Tyrus containers</b></p><div class="table-contents"><table summary="Tyrus containers" border="1"><colgroup><col width="14%" align="left" class="c1"><col width="35%" align="left" class="c2"><col width="51%" align="left" class="c3"></colgroup><thead><tr><th align="left">Module</th><th align="left">Dependencies</th><th align="left">Description</th></tr></thead><tbody><tr><td align="left">
-                        <a class="link" href="http://search.maven.org/#artifactdetails|org.glassfish.tyrus|tyrus-container-glassfish-cdi|2.0.2|jar" target="_top">
+                        <a class="link" href="http://search.maven.org/#artifactdetails|org.glassfish.tyrus|tyrus-container-glassfish-cdi|1.18|jar" target="_top">
                             tyrus-container-glassfish-cdi
                         </a>
                     </td><td align="left">tyrus-spi</td><td align="left">CDI support</td></tr><tr><td align="left">
-                        <a class="link" href="http://search.maven.org/#artifactdetails|org.glassfish.tyrus|tyrus-container-glassfish-ejb|2.0.2|jar" target="_top">
+                        <a class="link" href="http://search.maven.org/#artifactdetails|org.glassfish.tyrus|tyrus-container-glassfish-ejb|1.18|jar" target="_top">
                             tyrus-container-glassfish-ejb
                         </a>
                     </td><td align="left">tyrus-spi</td><td align="left">EJB support</td></tr><tr><td align="left">
-                        <a class="link" href="http://search.maven.org/#artifactdetails|org.glassfish.tyrus|tyrus-container-grizzly|2.0.2|jar" target="_top">
+                        <a class="link" href="http://search.maven.org/#artifactdetails|org.glassfish.tyrus|tyrus-container-grizzly|1.18|jar" target="_top">
                             tyrus-container-grizzly
                         </a>
                     </td><td align="left">tyrus-core, tyrus-spi, tyrus-websocket-core</td><td align="left">Grizzly integration for Tyrus client and standalone server usage</td></tr><tr><td align="left">
-                        <a class="link" href="http://search.maven.org/#artifactdetails|org.glassfish.tyrus|tyrus-container-servlet|2.0.2|bundle" target="_top">
+                        <a class="link" href="http://search.maven.org/#artifactdetails|org.glassfish.tyrus|tyrus-container-servlet|1.18|bundle" target="_top">
                             tyrus-container-servlet
                         </a>
-                    </td><td align="left">tyrus-server, tyrus-core, tyrus-spi, tyrus-websocket-core</td><td align="left">Servlet support for integration into web containers</td></tr></tbody></table></div></div><br class="table-break"></div><div lang="en" class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="deployment"></a>Chapter&nbsp;3.&nbsp;Deploying WebSocket Endpoints</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="#d0e334">3.1. Deploying Endpoints as a WAR file</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e359">3.1.1. Deployment Algorithm</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e410">3.2. Deploying endpoints via <code class="code">jakarta.websocket.server.ServerContainer</code></a></span></dt></dl></div><p>
+                    </td><td align="left">tyrus-server, tyrus-core, tyrus-spi, tyrus-websocket-core</td><td align="left">Servlet support for integration into web containers</td></tr></tbody></table></div></div><br class="table-break"></div><div lang="en" class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="deployment"></a>Chapter&nbsp;3.&nbsp;Deploying WebSocket Endpoints</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="#d0e334">3.1. Deploying Endpoints as a WAR file</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e359">3.1.1. Deployment Algorithm</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e410">3.2. Deploying endpoints via <code class="code">javax.websocket.server.ServerContainer</code></a></span></dt></dl></div><p>
         Deploying WebSocket endpoints can be done in two ways. Either deploying via putting the endpoint in the WAR
     file, or using the ServerContainer methods to deploy the programmatic endpoint in the deployment phase.
     </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e334"></a>3.1.&nbsp;Deploying Endpoints as a WAR file</h2></div></div></div><p>
             The classes that are scanned for in WAR are the following ones:
             </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: opencircle; "><li class="listitem" style="list-style-type: circle"><p>
-                        Classes that implement the <code class="code">jakarta.websocket.ServerApplicationConfig</code>.
+                        Classes that implement the <code class="code">javax.websocket.ServerApplicationConfig</code>.
                     </p></li><li class="listitem" style="list-style-type: circle"><p>
-                        Classes annotated with <code class="code">jakarta.websocket.server.ServerEndpoint</code>.
+                        Classes annotated with <code class="code">javax.websocket.server.ServerEndpoint</code>.
                     </p></li><li class="listitem" style="list-style-type: circle"><p>
-                        Classes that extend <code class="code">jakarta.websocket.Endpoint</code>.
+                        Classes that extend <code class="code">javax.websocket.Endpoint</code>.
                     </p></li></ul></div><p>
         </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d0e359"></a>3.1.1.&nbsp;Deployment Algorithm</h3></div></div></div><p>
                 </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
                         If one or more classes implementing ServerApplicationConfiguration are present in the WAR file, Tyrus deploys endpoints
                         provided by all of these classes. Tyrus doesn't deploy any other classes present in the WAR (annotated by
-                        <code class="code">jakarta.websocket.server.ServerEndpoint</code> or extending <code class="code">jakarta.websocket.Endpoint</code>).
+                        <code class="code">javax.websocket.server.ServerEndpoint</code> or extending <code class="code">javax.websocket.Endpoint</code>).
                     </li><li class="listitem">
                         If no class implementing ServerApplicationConfiguration is present, Tyrus deploys all classes annotated
                         with @ServerEndpoint or extending Endpoint present in the WAR.
                     </li></ol></div><p>
             </p></div><p>
             Let's have the following classes in the WAR:
-            </p><div class="example"><a name="deployment-serverapplicationconfig"></a><p class="title"><b>Example&nbsp;3.1.&nbsp;Deployment of WAR containing several classes extending <code class="code">jakarta.websocket.server.ServerApplicationConfig</code></b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">public class MyApplicationConfigOne implements ServerApplicationConfig {
+            </p><div class="example"><a name="deployment-serverapplicationconfig"></a><p class="title"><b>Example&nbsp;3.1.&nbsp;Deployment of WAR containing several classes extending <code class="code">javax.websocket.server.ServerApplicationConfig</code></b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">public class MyApplicationConfigOne implements ServerApplicationConfig {
     public Set&lt;ServerEndpointConfig&gt; getEndpointConfigs(Set&lt;Class&lt;? extends Endpoint&gt;&gt; endpointClasses);
         Set&lt;Class&lt;? extends Endpoint&gt;&gt; s = new HashSet&lt;Class&lt;? extends Endpoint&gt;&gt;;
         s.add(ProgrammaticEndpointOne.class);
@@ -310,10 +310,10 @@ public class ProgrammaticEndpointThree extends Endpoint {
             <code class="code">AnnotatedEndpointThree</code> and <code class="code">ProgrammaticEndpointThree</code> will not be
             deployed, as these are not returned by the respective
             methods of <code class="code">MyApplicationConfigOne</code> nor <code class="code">MyApplicationConfigTwo</code>.
-        </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e410"></a>3.2.&nbsp;Deploying endpoints via <code class="code">jakarta.websocket.server.ServerContainer</code></h2></div></div></div><p>
-            Endpoints may be deployed using <code class="code">jakarta.websocket.server.ServerContainer</code> during the application initialization phase.
+        </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e410"></a>3.2.&nbsp;Deploying endpoints via <code class="code">javax.websocket.server.ServerContainer</code></h2></div></div></div><p>
+            Endpoints may be deployed using <code class="code">javax.websocket.server.ServerContainer</code> during the application initialization phase.
             For websocket enabled web containers, developers may obtain a reference to the ServerContainer instance by
-            retrieving it as an attribute named <code class="code">jakarta.websocket.server.ServerContainer</code> on the ServletContext, see
+            retrieving it as an attribute named <code class="code">javax.websocket.server.ServerContainer</code> on the ServletContext, see
             the following example for annotated endpoint:
             </p><div class="example"><a name="deployment-servercontainer"></a><p class="title"><b>Example&nbsp;3.2.&nbsp;Deployment of Annotated Endpoint Using ServerContainer</b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">@WebListener
 @ServerEndpoint("/annotated")
@@ -322,7 +322,7 @@ public class MyServletContextListenerAnnotated implements ServletContextListener
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         final ServerContainer serverContainer = (ServerContainer) servletContextEvent.getServletContext()
-                                                    .getAttribute("jakarta.websocket.server.ServerContainer");
+                                                    .getAttribute("javax.websocket.server.ServerContainer");
 
         try {
             serverContainer.addEndpoint(MyServletContextListenerAnnotated.class);
@@ -340,12 +340,12 @@ public class MyServletContextListenerAnnotated implements ServletContextListener
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
     }
 }</pre></div></div><p><br class="example-break">
-        </p></div></div><div lang="en" class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="websocket-api"></a>Chapter&nbsp;4.&nbsp;WebSocket API Endpoints, Sessions and MessageHandlers</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="#d0e440">4.1. Endpoint Classes</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e464">4.1.1. jakarta.websocket.server.ServerEndpoint</a></span></dt><dt><span class="section"><a href="#d0e599">4.1.2. jakarta.websocket.ClientEndpoint</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e641">4.2. Endpoint method-level annotations</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e644">4.2.1. @OnOpen</a></span></dt><dt><span class="section"><a href="#d0e657">4.2.2. @OnClose</a></span></dt><dt><span class="section"><a href="#d0e670">4.2.3. @OnError</a></span></dt><dt><span class="section"><a href="#d0e683">4.2.4. @OnMessage</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e696">4.3. MessageHandlers</a></span></dt></dl></div><p>This chapter presents an overview of the core WebSocket API concepts - endpoints, configurations and message
+        </p></div></div><div lang="en" class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="websocket-api"></a>Chapter&nbsp;4.&nbsp;WebSocket API Endpoints, Sessions and MessageHandlers</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="#d0e440">4.1. Endpoint Classes</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e464">4.1.1. javax.websocket.server.ServerEndpoint</a></span></dt><dt><span class="section"><a href="#d0e599">4.1.2. javax.websocket.ClientEndpoint</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e641">4.2. Endpoint method-level annotations</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e644">4.2.1. @OnOpen</a></span></dt><dt><span class="section"><a href="#d0e657">4.2.2. @OnClose</a></span></dt><dt><span class="section"><a href="#d0e670">4.2.3. @OnError</a></span></dt><dt><span class="section"><a href="#d0e683">4.2.4. @OnMessage</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e696">4.3. MessageHandlers</a></span></dt></dl></div><p>This chapter presents an overview of the core WebSocket API concepts - endpoints, configurations and message
         handlers.</p><p>The JAVA API for WebSocket specification draft can be found online <a class="link" href="http://jcp.org/aboutJava/communityprocess/pfd/jsr356/index.html" target="_top">here</a>.
     </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e440"></a>4.1.&nbsp;Endpoint Classes</h2></div></div></div><p>
             <span class="emphasis"><em>Server endpoint classes</em></span>
-            are POJOs (Plain Old Java Objects) that are annotated with <code class="code">jakarta.websocket.server.ServerEndpoint</code>.
-            Similarly, <span class="emphasis"><em>client endpoint classes</em></span> are POJOs annotated with jakarta.websocket.ClientEndpoint.
+            are POJOs (Plain Old Java Objects) that are annotated with <code class="code">javax.websocket.server.ServerEndpoint</code>.
+            Similarly, <span class="emphasis"><em>client endpoint classes</em></span> are POJOs annotated with javax.websocket.ClientEndpoint.
             This section shows how to use Tyrus to annotate Java objects to create WebSocket web services.
         </p><p>The following code example is a simple example of a WebSocket endpoint using annotations. The example
             code shown here is from echo sample which ships with Tyrus.
@@ -374,9 +374,9 @@ public class EchoEndpoint {
     }
 }</pre></div></div><p><br class="example-break">
             Let's explain the JAVA API for WebSocket annotations.
-        </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d0e464"></a>4.1.1.&nbsp;jakarta.websocket.server.ServerEndpoint</h3></div></div></div><p>jakarta.websocket.server.ServerEndpoint has got one mandatory field - <span class="emphasis"><em>value</em></span> and four optional fields.
+        </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d0e464"></a>4.1.1.&nbsp;javax.websocket.server.ServerEndpoint</h3></div></div></div><p>javax.websocket.server.ServerEndpoint has got one mandatory field - <span class="emphasis"><em>value</em></span> and four optional fields.
                 See the example below.</p><p>
-                </p><div class="example"><a name="endpoints-serverendpoint-annotation"></a><p class="title"><b>Example&nbsp;4.2.&nbsp;jakarta.websocket.server.ServerEndpoint with all fields specified</b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">@ServerEndpoint(
+                </p><div class="example"><a name="endpoints-serverendpoint-annotation"></a><p class="title"><b>Example&nbsp;4.2.&nbsp;javax.websocket.server.ServerEndpoint with all fields specified</b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">@ServerEndpoint(
     value = "/sample",
     decoders = ChatDecoder.class,
     encoders = DisconnectResponseEncoder.class,
@@ -392,7 +392,7 @@ public class SampleEndpoint {
 }</pre></div></div><p><br class="example-break">
             </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a name="d0e480"></a>4.1.1.1.&nbsp;value</h4></div></div></div><p>
                  Denotes a relative URI path at which the server endpoint will be deployed. In the example
-                    <a class="link" href="#endpoints-serverendpoint-annotation" title="Example&nbsp;4.2.&nbsp;jakarta.websocket.server.ServerEndpoint with all fields specified">"jakarta.websocket.server.ServerEndpoint with all fields specified"</a>, the
+                    <a class="link" href="#endpoints-serverendpoint-annotation" title="Example&nbsp;4.2.&nbsp;javax.websocket.server.ServerEndpoint with all fields specified">"javax.websocket.server.ServerEndpoint with all fields specified"</a>, the
                     Java class will be hosted at the URI path
                     <code class="literal">/sample</code>. The field <span class="emphasis"><em>value</em></span> must begin with a '/' and may or may
                     not end in a '/', it makes no difference. Thus request URLs that end or do not end in a '/' will both
@@ -410,7 +410,7 @@ public class SampleEndpoint {
                     to respond to requests to this URI path template will respond. For example, if the user entered their
                     username as "Galileo", the web service will respond to the following URL:
                     <code class="literal">http://example.com/users/Galileo</code>
-                </p><p>To obtain the value of the username variable the <code class="code">jakarta.websocket.server.PathParam</code> may be used on method parameter
+                </p><p>To obtain the value of the username variable the <code class="code">javax.websocket.server.PathParam</code> may be used on method parameter
                     of methods annotated with one of @OnOpen, @OnMessage, @OnError, @OnClose.
                     </p><div class="example"><a name="d0e510"></a><p class="title"><b>Example&nbsp;4.3.&nbsp;Specifying URI path parameter</b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">@ServerEndpoint("/users/{username}")
 public class UserEndpoint {
@@ -522,7 +522,7 @@ public class UserEndpoint {
         // Plug your own algorithm here
     }
 }</pre><p>
-                </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d0e599"></a>4.1.2.&nbsp;jakarta.websocket.ClientEndpoint</h3></div></div></div><p>The @ClientEndpoint class-level annotation is used to turn a POJO into WebSocket client endpoint.
+                </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d0e599"></a>4.1.2.&nbsp;javax.websocket.ClientEndpoint</h3></div></div></div><p>The @ClientEndpoint class-level annotation is used to turn a POJO into WebSocket client endpoint.
                 In the following sample the client sends text message "Hello!" and prints out each received message.
                 </p><div class="example"><a name="d0e604"></a><p class="title"><b>Example&nbsp;4.6.&nbsp;SampleClientEndpoint</b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">@ClientEndpoint(
     decoders = SampleDecoder.class,
@@ -627,9 +627,9 @@ public class EchoEndpoint {
     }
 }</pre></div></div><p><br class="example-break">
             </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e696"></a>4.3.&nbsp;MessageHandlers</h2></div></div></div><p>
-            Implementing the <code class="code">jakarta.websocket.MessageHandler</code> interface is one of the ways how to receive messages
+            Implementing the <code class="code">javax.websocket.MessageHandler</code> interface is one of the ways how to receive messages
             on endpoints (both server and client). It is aimed primarily on programmatic endpoints, as the annotated ones
-            use the method level annotation <code class="code">jakarta.websocket.OnMessage</code> to denote the method which
+            use the method level annotation <code class="code">javax.websocket.OnMessage</code> to denote the method which
             receives messages.
         </p><p>
             The MessageHandlers get registered on the Session instance:
@@ -649,8 +649,8 @@ public class EchoEndpoint {
             There are two orthogonal criterions which classify MessageHandlers.
             According the WebSocket Protocol (RFC 6455) the message may be sent either complete, or in chunks. In Java API for WebSocket this fact is reflected
             by the interface which the handler implements. Whole messages are processed by handler which implements
-            <code class="code">jakarta.websocket.MessageHandler.Whole</code> interface. Partial
-            messages are processed by handlers that implement <code class="code">jakarta.websocket.MessageHandler.Partial</code>
+            <code class="code">javax.websocket.MessageHandler.Whole</code> interface. Partial
+            messages are processed by handlers that implement <code class="code">javax.websocket.MessageHandler.Partial</code>
             interface. However, if user registers just the whole message handler, it doesn't mean that the handler will
             process solely whole messages. If partial message is received, the parts are cached by Tyrus until the final
             part is received. Then the whole message is passed to the handler. Similarly, if the user registers just the
@@ -664,8 +664,8 @@ public class EchoEndpoint {
                     </p></li><li class="listitem" style="list-style-type: circle"><p>
                         <span class="emphasis"><em>java.io.Reader</em></span>
                     </p></li><li class="listitem" style="list-style-type: circle"><p>
-                        any developer object for which there is a corresponding <span class="emphasis"><em>jakarta.websocket.Decoder.Text</em></span>
-                      or <span class="emphasis"><em>jakarta.websocket.Decoder.TextStream</em></span>.
+                        any developer object for which there is a corresponding <span class="emphasis"><em>javax.websocket.Decoder.Text</em></span>
+                      or <span class="emphasis"><em>javax.websocket.Decoder.TextStream</em></span>.
                     </p></li></ul></div><p>
 
             The binary messages will be processed by MessageHandlers with the following types:
@@ -674,8 +674,8 @@ public class EchoEndpoint {
                     </p></li><li class="listitem" style="list-style-type: circle"><p>
                         <span class="emphasis"><em>java.io.InputStream</em></span>
                     </p></li><li class="listitem" style="list-style-type: circle"><p>
-                        any developer object for which there is a corresponding <span class="emphasis"><em>jakarta.websocket.Decoder.Binary</em></span>
-                        or <span class="emphasis"><em>jakarta.websocket.Decoder.BinaryStream</em></span>.
+                        any developer object for which there is a corresponding <span class="emphasis"><em>javax.websocket.Decoder.Binary</em></span>
+                        or <span class="emphasis"><em>javax.websocket.Decoder.BinaryStream</em></span>.
                     </p></li></ul></div><p>
         </p><p>
             The Java API for WebSocket limits the registration of MessageHandlers per Session to be one MessageHandler per native
@@ -683,16 +683,16 @@ public class EchoEndpoint {
             incoming text messages, one MessageHandler for incoming binary messages, and one MessageHandler for
             incoming pong messages. This rule holds for both whole and partial message handlers, i.e there may be one
             text MessageHandler - either whole, or partial, not both.
-        </p></div></div><div lang="en" class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="configurations"></a>Chapter&nbsp;5.&nbsp;Configurations</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="#d0e785">5.1. <code class="code">jakarta.websocket.server.ServerEndpointConfig</code></a></span></dt><dt><span class="section"><a href="#d0e838">5.2. <code class="code">jakarta.websocket.ClientEndpointConfig</code></a></span></dt></dl></div><p>
-        <code class="code">jakarta.websocket.server.ServerEndpointConfig</code> and <code class="code">jakarta.websocket.ClientEndpointConfig</code> objects
+        </p></div></div><div lang="en" class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="configurations"></a>Chapter&nbsp;5.&nbsp;Configurations</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="#d0e785">5.1. <code class="code">javax.websocket.server.ServerEndpointConfig</code></a></span></dt><dt><span class="section"><a href="#d0e838">5.2. <code class="code">javax.websocket.ClientEndpointConfig</code></a></span></dt></dl></div><p>
+        <code class="code">javax.websocket.server.ServerEndpointConfig</code> and <code class="code">javax.websocket.ClientEndpointConfig</code> objects
         are used to provide the user the ability to configure websocket endpoints. Both server and client endpoints have some
         part of configuration in common, namely encoders, decoders, and user properties. The user properties may developers
         use to store the application specific data. For the developer's convenience the builders are provided for both
         ServerEndpointConfig and ClientEndpointConfig.
-    </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e785"></a>5.1.&nbsp;<code class="code">jakarta.websocket.server.ServerEndpointConfig</code></h2></div></div></div><p>
-            The <code class="code">jakarta.websocket.server.ServerEndpointConfig</code> is used when deploying the endpoint either via
-            implementing the <code class="code">jakarta.websocket.server.ServerApplicationConfig</code>, or via registering the programmatic endpoint
-            at the <code class="code">jakarta.websocket.server.ServerContainer</code> instance. It allows the user to create the configuration
+    </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e785"></a>5.1.&nbsp;<code class="code">javax.websocket.server.ServerEndpointConfig</code></h2></div></div></div><p>
+            The <code class="code">javax.websocket.server.ServerEndpointConfig</code> is used when deploying the endpoint either via
+            implementing the <code class="code">javax.websocket.server.ServerApplicationConfig</code>, or via registering the programmatic endpoint
+            at the <code class="code">javax.websocket.server.ServerContainer</code> instance. It allows the user to create the configuration
             programmatically.
         </p><p>
             The following example is used to deploy the EchoEndpoint programmatically. In the method
@@ -752,16 +752,16 @@ public class EchoEndpoint {
         return userProperties;
     }
 }</pre></div></div><br class="example-break"><p>
-            To make the development easy the <span class="emphasis"><em>jakarta.websocket.server.ServerEndpointConfig</em></span> provides a builder to construct
+            To make the development easy the <span class="emphasis"><em>javax.websocket.server.ServerEndpointConfig</em></span> provides a builder to construct
             the configuration object:
             </p><div class="example"><a name="d0e832"></a><p class="title"><b>Example&nbsp;5.2.&nbsp;ServerEndpointConfigu built using Builder</b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">ServerEndpointConfig config = ServerEndpointConfig.Builder.create(EchoEndpoint.class,"/echo").
     decoders(Arrays.&lt;Class&lt;? extends Decoder&gt;&gt;asList(JsonDecoder.class)).
     encoders(Arrays.&lt;Class&lt; extends Encoder&gt;&gt;asList(JsonEncoder.class)).build();</pre></div></div><p><br class="example-break">
-        </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e838"></a>5.2.&nbsp;<code class="code">jakarta.websocket.ClientEndpointConfig</code></h2></div></div></div><p>
-            The <code class="code">jakarta.websocket.ClientEndpointConfig</code> is used when deploying the programmatic client endpoint
+        </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e838"></a>5.2.&nbsp;<code class="code">javax.websocket.ClientEndpointConfig</code></h2></div></div></div><p>
+            The <code class="code">javax.websocket.ClientEndpointConfig</code> is used when deploying the programmatic client endpoint
             via registering the programmatic endpoint at the <code class="code">WebSocketContainer</code> instance. Some of
             the configuration methods come from the <code class="code">EndpointConfig</code>class, which is extended by both
-            <code class="code">jakarta.websocket.server.ServerEndpointConfig</code> and <code class="code">jakarta.websocket.ClientEndpointConfig</code>. Then there are methods
+            <code class="code">javax.websocket.server.ServerEndpointConfig</code> and <code class="code">javax.websocket.ClientEndpointConfig</code>. Then there are methods
             for configuring the preferred subprotocols the client endpoint wants to use and supported extensions. It is
             also possible to use the ClientEndpointConfig.Configurator in order to be able to affect the endpoint behaviour
             before and after request.
@@ -770,19 +770,19 @@ public class EchoEndpoint {
         </p><div class="example"><a name="d0e861"></a><p class="title"><b>Example&nbsp;5.3.&nbsp;ClientEndpointConfig built using Builder</b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">ClientEndpointConfig.Builder.create().
     decoders(Arrays.&lt;Class&lt;? extends Decoder&gt;&gt;asList(JsonDecoder.class)).
     encoders(Arrays.&lt;Class&lt;? extends Encoder&gt;&gt;asList(JsonEncoder.class)).
-    preferredSubprotocols(Arrays.asList("echo1", "echo2")).build();</pre></div></div><br class="example-break"></div></div><div lang="en" class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="lifecycle"></a>Chapter&nbsp;6.&nbsp;Endpoint Lifecycle, Sessions, Sending Messages</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="#d0e870">6.1. Endpoint Lifecycle</a></span></dt><dt><span class="section"><a href="#d0e890">6.2. <code class="code">jakarta.websocket.Session</code></a></span></dt><dt><span class="section"><a href="#d0e975">6.3. Sending Messages</a></span></dt><dt><span class="section"><a href="#d0e1007">6.4. RemoteEndpoint</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1021">6.4.1. <code class="code">jakarta.websocket.RemoteEndpoint.Basic</code></a></span></dt><dt><span class="section"><a href="#d0e1045">6.4.2. <code class="code">jakarta.websocket.RemoteEndpoint.Async</code></a></span></dt></dl></dd></dl></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e870"></a>6.1.&nbsp;Endpoint Lifecycle</h2></div></div></div><p>
-                As mentioned before, the endpoint in Java API for WebSocket is represented either by instance of <code class="code">jakarta.websocket.Endpoint</code>,
-                or by class annotated with either <code class="code">jakarta.websocket.server.ServerEndpoint</code> or
-                <code class="code">jakarta.websocket.ClientEndpoint</code>. Unless otherwise defined by developer provided configurator
-                (defined in instance of <code class="code">jakarta.websocket.server.ServerEndpointConfig</code> or
-                <code class="code">jakarta.websocket.ClientEndpointConfig</code>, Tyrus uses one endpoint instance per VM per connected
+    preferredSubprotocols(Arrays.asList("echo1", "echo2")).build();</pre></div></div><br class="example-break"></div></div><div lang="en" class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="lifecycle"></a>Chapter&nbsp;6.&nbsp;Endpoint Lifecycle, Sessions, Sending Messages</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="#d0e870">6.1. Endpoint Lifecycle</a></span></dt><dt><span class="section"><a href="#d0e890">6.2. <code class="code">javax.websocket.Session</code></a></span></dt><dt><span class="section"><a href="#d0e975">6.3. Sending Messages</a></span></dt><dt><span class="section"><a href="#d0e1007">6.4. RemoteEndpoint</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1021">6.4.1. <code class="code">javax.websocket.RemoteEndpoint.Basic</code></a></span></dt><dt><span class="section"><a href="#d0e1045">6.4.2. <code class="code">javax.websocket.RemoteEndpoint.Async</code></a></span></dt></dl></dd></dl></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e870"></a>6.1.&nbsp;Endpoint Lifecycle</h2></div></div></div><p>
+                As mentioned before, the endpoint in Java API for WebSocket is represented either by instance of <code class="code">javax.websocket.Endpoint</code>,
+                or by class annotated with either <code class="code">javax.websocket.server.ServerEndpoint</code> or
+                <code class="code">javax.websocket.ClientEndpoint</code>. Unless otherwise defined by developer provided configurator
+                (defined in instance of <code class="code">javax.websocket.server.ServerEndpointConfig</code> or
+                <code class="code">javax.websocket.ClientEndpointConfig</code>, Tyrus uses one endpoint instance per VM per connected
                 peer. Therefore one endpoint instance typically handles connections from one peer.
-            </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e890"></a>6.2.&nbsp;<code class="code">jakarta.websocket.Session</code></h2></div></div></div><p>
+            </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e890"></a>6.2.&nbsp;<code class="code">javax.websocket.Session</code></h2></div></div></div><p>
                 The sequence of interactions between an endpoint instance and remote peer is in Java API for WebSocket modelled by
-                <code class="code">jakarta.websocket.Session</code> instance. This interaction starts by mandatory open notification,
+                <code class="code">javax.websocket.Session</code> instance. This interaction starts by mandatory open notification,
                 continues by 0 - n websocket messages and is finished by mandatory closing notification.
             </p><p>
-                The <code class="code">jakarta.websocket.Session</code> instance is passed by Tyrus to the user in the following methods
+                The <code class="code">javax.websocket.Session</code> instance is passed by Tyrus to the user in the following methods
                 for programmatic endpoints:
                 </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: opencircle; "><li class="listitem" style="list-style-type: circle"><p>
                             <code class="code">public void onOpen(Session session, EndpointConfig config)</code>
@@ -792,23 +792,23 @@ public class EchoEndpoint {
                             <code class="code">public void onError(Session session, Throwable thr)</code>
                         </p></li></ul></div><p>
             </p><p>
-                The <code class="code">jakarta.websocket.Session</code> instance is passed by Tyrus to the user in the methods
+                The <code class="code">javax.websocket.Session</code> instance is passed by Tyrus to the user in the methods
                 annotated by following annotations for annotated endpoints:
                 </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: opencircle; "><li class="listitem" style="list-style-type: circle"><p>
-                            method annotated with <code class="code">jakarta.websocket.OnOpen</code>
+                            method annotated with <code class="code">javax.websocket.OnOpen</code>
                         </p></li><li class="listitem" style="list-style-type: circle"><p>
-                            method annotated with <code class="code">jakarta.websocket.OnMessage</code>
+                            method annotated with <code class="code">javax.websocket.OnMessage</code>
                         </p></li><li class="listitem" style="list-style-type: circle"><p>
-                            method annotated with <code class="code">jakarta.websocket.OnClose</code>
+                            method annotated with <code class="code">javax.websocket.OnClose</code>
                         </p></li><li class="listitem" style="list-style-type: circle"><p>
-                            method annotated with <code class="code">jakarta.websocket.OnError</code>
+                            method annotated with <code class="code">javax.websocket.OnError</code>
                         </p></li></ul></div><p>
                 In each of the methods annotated with the preceeding annotations the user may use parameter of type
-                <code class="code">jakarta.websocket.Session</code>. In the following example the developer wants to send a message in
-                the method annotated with <code class="code">jakarta.websocket.OnOpen</code>. As we will demonstrate later, the developer
+                <code class="code">javax.websocket.Session</code>. In the following example the developer wants to send a message in
+                the method annotated with <code class="code">javax.websocket.OnOpen</code>. As we will demonstrate later, the developer
                 needs the session instance to do so. According to Java API for WebSocket Session is one of the allowed parameters in
-                methods annotated with  <code class="code">jakarta.websocket.OnOpen</code>. Once the annotated method gets called,
-                Tyrus passes in the correct instance of <code class="code">jakarta.websocket.Session</code>.
+                methods annotated with  <code class="code">javax.websocket.OnOpen</code>. Once the annotated method gets called,
+                Tyrus passes in the correct instance of <code class="code">javax.websocket.Session</code>.
             </p><p>
                 </p><div class="example"><a name="lifecycle-echo-sample"></a><p class="title"><b>Example&nbsp;6.1.&nbsp;Lifecycle echo sample</b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">@ServerEndpoint("/echo")
 public class EchoEndpoint {
@@ -831,7 +831,7 @@ public class EchoEndpoint {
             </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e975"></a>6.3.&nbsp;Sending Messages</h2></div></div></div><p>
                 Generally there are two ways how to send message to the peer endpoint. First one is usable for annotated
                 endpoints only. The user may send the message by returning the message content from the method annotated
-                with <code class="code">jakarta.websocket.OnMessage</code>. In the following example the message m is sent back to the
+                with <code class="code">javax.websocket.OnMessage</code>. In the following example the message m is sent back to the
                 remote endpoint.
             </p><p>
                 </p><div class="example"><a name="lifecycle-onmessage-sample"></a><p class="title"><b>Example&nbsp;6.2.&nbsp;Sending message in @OnMessage</b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">@OnMessage
@@ -839,25 +839,25 @@ public String echo(String m) {
     return m;                                                                                                                             &nbsp;&nbsp;
 }</pre></div></div><p><br class="example-break">
             </p><p>
-            The other option how to send a message is to obtain the <code class="code">jakarta.websocket.RemoteEndpoint</code> instance
-            via the <code class="code">jakarta.websocket.Session</code> instance. See the following example:
+            The other option how to send a message is to obtain the <code class="code">javax.websocket.RemoteEndpoint</code> instance
+            via the <code class="code">javax.websocket.Session</code> instance. See the following example:
         </p><p>
             </p><div class="example"><a name="lifecycle-remote-endpoint-sample"></a><p class="title"><b>Example&nbsp;6.3.&nbsp;Sending message via RemoteEndpoint.Basic instance</b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">@OnMessage
 public void echo(String message, Session session) {
     session.getBasicRemote().sendText(message);
 }</pre></div></div><p><br class="example-break">
         </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e1007"></a>6.4.&nbsp;RemoteEndpoint</h2></div></div></div><p>
-            The interface <code class="code">jakarta.websocket.RemoteEndpoint</code>, part of Java API for WebSocket, is designed to represent the
+            The interface <code class="code">javax.websocket.RemoteEndpoint</code>, part of Java API for WebSocket, is designed to represent the
             other end of the communication (related to the endpoint), so the developer uses it to send the message.
-            There are two basic interfaces the user may use - <code class="code">jakarta.websocket.RemoteEndpoint$Basic</code> and
-            <code class="code">jakarta.websocket.RemoteEndpoint$Async</code>.
-        </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d0e1021"></a>6.4.1.&nbsp;<code class="code">jakarta.websocket.RemoteEndpoint.Basic</code></h3></div></div></div><p>
+            There are two basic interfaces the user may use - <code class="code">javax.websocket.RemoteEndpoint$Basic</code> and
+            <code class="code">javax.websocket.RemoteEndpoint$Async</code>.
+        </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d0e1021"></a>6.4.1.&nbsp;<code class="code">javax.websocket.RemoteEndpoint.Basic</code></h3></div></div></div><p>
                 This representation of the peer of a web socket conversation is used to send synchronous messages. The point
                 of completion of the send is defined when all the supplied data has been written to the underlying connection.
                 The methods for sending messages on the
-                <code class="code">jakarta.websocket.RemoteEndpoint$Basic</code> block until this point of completion is reached, except for
-                <code class="code">jakarta.websocket.RemoteEndpoint$Basic#getSendStream()</code> and
-                <code class="code">jakarta.websocket.RemoteEndpoint$Basic#getSendWriter()</code> which present traditional blocking I/O streams
+                <code class="code">javax.websocket.RemoteEndpoint$Basic</code> block until this point of completion is reached, except for
+                <code class="code">javax.websocket.RemoteEndpoint$Basic#getSendStream()</code> and
+                <code class="code">javax.websocket.RemoteEndpoint$Basic#getSendWriter()</code> which present traditional blocking I/O streams
                 to write messages. See the example
                 <a class="link" href="#lifecycle-remote-endpoint-sample" title="Example&nbsp;6.3.&nbsp;Sending message via RemoteEndpoint.Basic instance">"Sending message via RemoteEndpoint.Basic instance"</a>
                 to see how the whole text message is send. The following example demonstrates a method which sends the
@@ -869,7 +869,7 @@ public void echo(String message, Session session) {
         e.printStackTrace();
     }
 }</pre></div></div><p><br class="example-break">
-            </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d0e1045"></a>6.4.2.&nbsp;<code class="code">jakarta.websocket.RemoteEndpoint.Async</code></h3></div></div></div><p>
+            </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d0e1045"></a>6.4.2.&nbsp;<code class="code">javax.websocket.RemoteEndpoint.Async</code></h3></div></div></div><p>
                 This representation of the peer of a web socket conversation has the ability to send messages
                 asynchronously. The point of completion of the send is defined when all the supplied data has been
                 written to the underlying connection. The completion handlers for the asynchronous methods are always
@@ -877,16 +877,16 @@ public void echo(String message, Session session) {
                 </p><div class="example"><a name="lifecycle-remote-endpoint-async-future"></a><p class="title"><b>Example&nbsp;6.5.&nbsp;Sending mesage the async way using Future</b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">public void sendWholeAsyncMessage(String message, Session session){
     Future&lt;Void&gt; future = session.getAsyncRemote().sendText(message);
 }</pre></div></div><p><br class="example-break">
-            </p></div></div></div><div lang="en" class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="injection"></a>Chapter&nbsp;7.&nbsp;Injection Support</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="#d0e1075">7.1. <code class="code">jakarta.inject.Inject</code> sample</a></span></dt><dt><span class="section"><a href="#d0e1102">7.2. EJB sample</a></span></dt></dl></div><p>
-        As required in Java API for WebSocket, Tyrus supports full field, method and constructor injection using <code class="code">jakarta.inject.Inject</code>
+            </p></div></div></div><div lang="en" class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="injection"></a>Chapter&nbsp;7.&nbsp;Injection Support</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="#d0e1075">7.1. <code class="code">javax.inject.Inject</code> sample</a></span></dt><dt><span class="section"><a href="#d0e1102">7.2. EJB sample</a></span></dt></dl></div><p>
+        As required in Java API for WebSocket, Tyrus supports full field, method and constructor injection using <code class="code">javax.inject.Inject</code>
         into all websocket endpoint classes as well as the use of the interceptors on these classes.
-        Except this,  Tyrus also supports some of the EJB annotations. Currently <code class="code">jakarta.ejb.Stateful</code>,
-        <code class="code">jakarta.ejb.Singleton</code> and <code class="code">jakarta.ejb.Stateless</code> annotations are supported.
-    </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e1075"></a>7.1.&nbsp;<code class="code">jakarta.inject.Inject</code> sample</h2></div></div></div><p>
-            The following example presents how to inject a bean to the <code class="code">jakarta.websocket.server.ServerEndpoint</code>
-            annotated class using <code class="code">jakarta.inject.Inject</code>. Class <code class="code">InjectedSimpleBean</code> gets injected
+        Except this,  Tyrus also supports some of the EJB annotations. Currently <code class="code">javax.ejb.Stateful</code>,
+        <code class="code">javax.ejb.Singleton</code> and <code class="code">javax.ejb.Stateless</code> annotations are supported.
+    </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e1075"></a>7.1.&nbsp;<code class="code">javax.inject.Inject</code> sample</h2></div></div></div><p>
+            The following example presents how to inject a bean to the <code class="code">javax.websocket.server.ServerEndpoint</code>
+            annotated class using <code class="code">javax.inject.Inject</code>. Class <code class="code">InjectedSimpleBean</code> gets injected
             into class <code class="code">SimpleEndpoint</code> on line 15.
-            </p><div class="example"><a name="cdi-simple-bean"></a><p class="title"><b>Example&nbsp;7.1.&nbsp;Injecting bean into <code class="code">jakarta.websocket.server.ServerEndpoint</code></b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">public class InjectedSimpleBean {
+            </p><div class="example"><a name="cdi-simple-bean"></a><p class="title"><b>Example&nbsp;7.1.&nbsp;Injecting bean into <code class="code">javax.websocket.server.ServerEndpoint</code></b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">public class InjectedSimpleBean {
 
     private static final String TEXT = " (from your server)";
 
@@ -909,8 +909,8 @@ public class SimpleEndpoint {
     }
 }</pre></div></div><p><br class="example-break">
         </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e1102"></a>7.2.&nbsp;EJB sample</h2></div></div></div><p>
-            The following sample presents how to turn <code class="code">jakarta.websocket.server.ServerEndpoint</code> annotated class
-            into <code class="code">jakarta.ejb.Singleton</code> and use interceptor on it.
+            The following sample presents how to turn <code class="code">javax.websocket.server.ServerEndpoint</code> annotated class
+            into <code class="code">javax.ejb.Singleton</code> and use interceptor on it.
             </p><div class="example"><a name="cdi-singleton-bean"></a><p class="title"><b>Example&nbsp;7.2.&nbsp;Echo sample server endpoint.</b></p><div class="example-contents"><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">@ServerEndpoint(value = "/singleton")
 @Singleton
 @Interceptors(LoggingInterceptor.class)
@@ -940,7 +940,7 @@ public class LoggingInterceptor {
     other WebSocket API implementation.</p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e1128"></a>8.1.&nbsp;Client-side SSL configuration</h2></div></div></div><p>When accessing "wss" URLs, Tyrus client will pick up whatever keystore and truststore is actually set for current JVM instance, but
             that might not be always convenient. WebSocket API does not have this feature (yet, see <a class="link" href="https://java.net/jira/browse/WEBSOCKET_SPEC-210" target="_top">WEBSOCKET_SPEC-210</a>),
             so Tyrus exposed two SSL configuration classes <a class="link" href="https://grizzly.java.net/docs/2.3/apidocs/org/glassfish/grizzly/ssl/SSLEngineConfigurator.html" target="_top">SSLEngineConfigurator</a>
-            and <a class="link" href="https://tyrus.java.net/apidocs/2.0.2/org/glassfish/tyrus/client/SslEngineConfigurator.html" target="_top">SslEngineConfigurator</a>
+            and <a class="link" href="https://tyrus.java.net/apidocs/1.18/org/glassfish/tyrus/client/SslEngineConfigurator.html" target="_top">SslEngineConfigurator</a>
             , which can be used for specifying all SSL parameters to be used with current client instance. The former configuration class
             belongs to Grizzly configuration API and therefore works only with Grizzly client. The latter configuration class
             works with both Grizzly and JDK client and offers some extensions over the Grizzly SSLEngineConfigurator
@@ -948,7 +948,7 @@ public class LoggingInterceptor {
             please refer to the following subsection dealing with host verification.
 
             Additionally, WebSocket API does not have anything like a client, only WebSocketContainer and it does not have any properties, so you need to use Tyrus specific class -
-            <a class="link" href="https://tyrus.java.net/apidocs/2.0.2/org/glassfish/tyrus/client/ClientManager.html" target="_top">ClientManager</a>.</p><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">final ClientManager client = ClientManager.createClient();
+            <a class="link" href="https://tyrus.java.net/apidocs/1.18/org/glassfish/tyrus/client/ClientManager.html" target="_top">ClientManager</a>.</p><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">final ClientManager client = ClientManager.createClient();
 
 System.getProperties().put("javax.net.debug", "all");
 System.getProperties().put(SSLContextConfigurator.KEY_STORE_FILE, "...");
@@ -986,7 +986,7 @@ client.connectToServer(... , ClientEndpointConfig.Builder.create().build(),
                 to note that Grizzly specific
                 <a class="link" href="https://grizzly.java.net/docs/2.3/apidocs/org/glassfish/grizzly/ssl/SSLEngineConfigurator.html" target="_top">SSLEngineConfigurator</a>
                 does not provide these options and for modifying the default host name verification policy
-                <a class="link" href="https://tyrus.java.net/apidocs/2.0.2/org/glassfish/tyrus/client/SslEngineConfigurator.html" target="_top">SslEngineConfigurator</a>
+                <a class="link" href="https://tyrus.java.net/apidocs/1.18/org/glassfish/tyrus/client/SslEngineConfigurator.html" target="_top">SslEngineConfigurator</a>
                 must be used instead. The following sample shows how to disable host name verification:
                 </p><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">SslEngineConfigurator sslEngineConfigurator = new SslEngineConfigurator(new SslContextConfigurator());
 sslEngineConfigurator.setHostVerificationEnabled(false)
@@ -1133,7 +1133,7 @@ client.getProperties().put(ClientProperties.MASKING_KEY_GENERATOR, new MaskingKe
             gathered from opcode, but it is at least always deterministic and it will be used by most of extension
             implementations. It is not usual to modify control frames as it might end with half closed connections or
             unanswered ping messages.</p><p>ExtendedExtension representation needs to be able to handle extension parameter negotiation and actual processing
-        of incoming and outgoing frames. It also should be compatible with existing jakarta.websocket.Extension class, since we
+        of incoming and outgoing frames. It also should be compatible with existing javax.websocket.Extension class, since we
         want to re-use existing registration API and be able to return new extension instance included in response
         from List&lt;Extension&gt; Session.getNegotiatedExtensions() call. Consider following:</p><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">public interface ExtendedExtension extends Extension {
 
@@ -1158,7 +1158,7 @@ client.getProperties().put(ClientProperties.MASKING_KEY_GENERATOR, new MaskingKe
             and even if it was, it won&#8217;t be very elegant. Also, you might suggest replacing processIncoming and
             processOutgoing methods by just oneprocess(Frame) method. That is also possible, but then you might have to
             assume current direction from frame instance or somehow from ExtensionContext, which is generally not a bad
-            idea, but it resulted it slightly less readable code.</p><p>ExtensionContext and related lifecycle method is there because original jakarta.websocket.Extension is singleton
+            idea, but it resulted it slightly less readable code.</p><p>ExtensionContext and related lifecycle method is there because original javax.websocket.Extension is singleton
         and ExtendedExtension must obey this fact. But it does not meet some requirements we stated previously, like per
         connection parameter negotiation and of course processing itself will most likely have some connection state.
         Lifecycle of ExtensionContext is defined as follows: ExtensionContext instance is created right before onExtensionNegotiation
@@ -1340,7 +1340,7 @@ final ClientManager client = ClientManager.createClient(JdkClientContainer.class
 &lt;dependency&gt;
   &lt;groupId&gt;org.glassfish.tyrus&lt;/groupId&gt;
   &lt;artifactId&gt;tyrus-container-jdk-client&lt;/artifactId&gt;
-  &lt;version&gt;2.0.2&lt;/version&gt;
+  &lt;version&gt;1.18&lt;/version&gt;
 &lt;/dependency&gt;
             </pre><p>
             Grizzly client is the default option, so creating a client without any parameters will result in Grizzly client being used.
@@ -1371,9 +1371,9 @@ final WebSocketContainer client = ContainerProvider.getWebSocketContainer();
                 end
                 <a class="link" href="https://grizzly.java.net/docs/2.3/apidocs/org/glassfish/grizzly/ssl/SSLContextConfigurator.html" target="_top">SSLContextConfigurator</a>
                 from Grizzly project and
-                <a class="link" href="https://tyrus.java.net/apidocs/2.0.2/org/glassfish/tyrus/client/SslEngineConfigurator.html" target="_top">SslEngineConfigurator</a>
+                <a class="link" href="https://tyrus.java.net/apidocs/1.18/org/glassfish/tyrus/client/SslEngineConfigurator.html" target="_top">SslEngineConfigurator</a>
                 and
-                <a class="link" href="https://tyrus.java.net/apidocs/2.0.2/org/glassfish/tyrus/client/SslContextConfigurator.html" target="_top">SslContextConfigurator</a>
+                <a class="link" href="https://tyrus.java.net/apidocs/1.18/org/glassfish/tyrus/client/SslContextConfigurator.html" target="_top">SslContextConfigurator</a>
                 from Tyrus project, but JDK client supports only the Tyrus version of these classes.
                 The following code sample shows an example of some SSL parameters configuration for the JDK client:
                 </p><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">
@@ -1661,9 +1661,9 @@ serverProperties.put(ApplicationEventListener.APPLICATION_EVENT_LISTENER, new Se
             </pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a name="d0e1643"></a>8.13.3.&nbsp;Maximal number of open sessions per endpoint</h3></div></div></div><p>
                 Set maximum number of sessions in annotated endpoint:
                 </p><pre class="&#xA;    toolbar: false;&#xA;    brush: java;&#xA;    ">
-import jakarta.websocket.OnOpen;
-import jakarta.websocket.Session;
-import jakarta.websocket.server.ServerEndpoint;
+import javax.websocket.OnOpen;
+import javax.websocket.Session;
+import javax.websocket.server.ServerEndpoint;
 
 import org.glassfish.tyrus.core.MaxSessions;
 
